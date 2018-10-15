@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-30T07:38:18.029Z</updated>
+  <updated>2018-10-11T12:45:13.711Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,17 +17,73 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/09/30/vue.js%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>http://yoursite.com/2018/09/30/vue.js源码解析/</id>
-    <published>2018-09-30T01:54:07.930Z</published>
-    <updated>2018-09-30T07:38:18.029Z</updated>
+    <title>JavaScript - 数据存储</title>
+    <link href="http://yoursite.com/2018/10/10/JavaScript-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/"/>
+    <id>http://yoursite.com/2018/10/10/JavaScript-数据存储/</id>
+    <published>2018-10-10T03:09:21.000Z</published>
+    <updated>2018-10-11T12:45:13.711Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="vue-js源码解析"><a href="#vue-js源码解析" class="headerlink" title="vue.js源码解析"></a>vue.js源码解析</h2><p>vue.js源码解析<br><a id="more"></a></p><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h3 id="数据驱动"><a href="#数据驱动" class="headerlink" title="数据驱动"></a>数据驱动</h3><h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><h3 id="深入响应式原理"><a href="#深入响应式原理" class="headerlink" title="深入响应式原理"></a>深入响应式原理</h3><h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h3 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h3><h3 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h3>]]></content>
+    <content type="html"><![CDATA[<p>一直以来都知道cookie、sessionStorage、localStorage这些用于缓存数据的,但并没有正式地去了解研究过它们，此次项目中用到这些知识，正好学习一波～</p><p>cookie：也就是HTTP cookie，客户端用于存储会话信息，是一个标准，并且要求服务器对任意HTTP请求发送Set-Cookie HTTP头作为响应的一部分。</p><p>Web Storage：一种为了存储大量可以跨会话存在的数据，新途径的标准。包含两种对象定义：sessionStorage、globalStorage……<br><a id="more"></a></p><h3 id="1-cookie"><a href="#1-cookie" class="headerlink" title="1. cookie"></a>1. cookie</h3><h3 id="2-Web-Storage"><a href="#2-Web-Storage" class="headerlink" title="2. Web Storage"></a>2. Web Storage</h3><h4 id="2-1-sessionStorage"><a href="#2-1-sessionStorage" class="headerlink" title="2.1 sessionStorage"></a>2.1 sessionStorage</h4><h4 id="2-2-globalStorage"><a href="#2-2-globalStorage" class="headerlink" title="2.2 globalStorage"></a>2.2 globalStorage</h4>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;vue-js源码解析&quot;&gt;&lt;a href=&quot;#vue-js源码解析&quot; class=&quot;headerlink&quot; title=&quot;vue.js源码解析&quot;&gt;&lt;/a&gt;vue.js源码解析&lt;/h2&gt;&lt;p&gt;vue.js源码解析&lt;br&gt;
+      &lt;p&gt;一直以来都知道cookie、sessionStorage、localStorage这些用于缓存数据的,但并没有正式地去了解研究过它们，此次项目中用到这些知识，正好学习一波～&lt;/p&gt;
+&lt;p&gt;cookie：也就是HTTP cookie，客户端用于存储会话信息，是一个标准，并且要求服务器对任意HTTP请求发送Set-Cookie HTTP头作为响应的一部分。&lt;/p&gt;
+&lt;p&gt;Web Storage：一种为了存储大量可以跨会话存在的数据，新途径的标准。包含两种对象定义：sessionStorage、globalStorage……&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>vue源码分析 - 数据驱动</title>
+    <link href="http://yoursite.com/2018/10/09/vue%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8/"/>
+    <id>http://yoursite.com/2018/10/09/vue源码分析-数据驱动/</id>
+    <published>2018-10-09T02:49:58.000Z</published>
+    <updated>2018-10-13T11:30:14.268Z</updated>
+    
+    <content type="html"><![CDATA[<p>数据驱动是vue.js的一个重要的思想。数据驱动：视图根据数据驱动生成，我们不会通过直接修改dom来修改视图，会通过修改数据来完成对视图的修改。<br><a id="more"></a></p><blockquote><p>Runtime-only: 需要借助类似于webpack的vue-loader来将.vue文件编译成JavaScript。因为是在编译阶段做的，所以只包含运行时的Vue.js代码，代码体积更轻便。<br><br>Runtime + compiler: 没有对代码做预编译。因为在Vue.js2.0中，最后渲染都是通过render函数，如果编写了template，则需要编译成render函数，而这个编译过程发生在运行时，所以需要带有编译器的版本，并且这个编译过程对性能会有一定的损耗。</p></blockquote><h3 id="1-new"><a href="#1-new" class="headerlink" title="1. new"></a>1. new</h3><blockquote><p>new Vue()一个实例干了什么？</p></blockquote><p><img src="https://i.imgur.com/lny4o5V.png" alt="new vue时的代码"><br>new Vue()后只会判断使用的语法对不对，然后就调用已经挂载到Vue原型上的_init方法(通过initMixin(Vue))，在initMixin()之前，Vue上只有一个构造函数外加一个<strong>proto</strong>（也就是Object所含有的）。<br><img src="https://i.imgur.com/PNzomC5.png" alt="vue.prototype"></p><h3 id="2-init"><a href="#2-init" class="headerlink" title="2. init"></a>2. init</h3><p>initMixin方法在Vue.prototype上挂载了一个_init方法<br><img src="https://i.imgur.com/Yt9N7Rl.png" alt=""><br>在initMixin方法中：先将options进行整合（具体先不管）；<br>后又进行了一系统的初始化：生命周期初始化（initLifecycle）、事件初始化（initEvents）、渲染（initRender）、callHook()、初始化数据（initState）以及一些其它的初始化(initInjections、initProvide)</p><p>其中initState方法中含有initData方法(其中含有一个proxy(vm, “_data”, key)，为data中数据项进行一个代理设置)</p><p><img src="https://i.imgur.com/UHwd04N.png" alt=""><br>也就是利用了Object.defineProperty()方法来设置访问器属性，从而实现了直接修改类似this.message = 12也就是修改了this._data.message = 12</p><p>除了_data会使用proxy方法来进行一层设置代理，还会有_props，因此_data与_props里面定义的属性名称不能相同，不然就会出现覆盖的情况（写组件中经常就会遇见props中有一个a，data中也有一个a，则后期父组件修改a的值后，组件并不会跟着进行变化）</p><h3 id="3-mount"><a href="#3-mount" class="headerlink" title="3. $mount"></a>3. $mount</h3><p>在initMixin方法的最后根据vm.$options.el是否存在来决定是否挂载</p><p><code>if (vm.$options.el) {  vm.$mount(vm.$options.el);}</code></p><p>$mount方法是挂载在vue构造函数prototype上的，里面直接调用的是mountComponent方法，后期又定义了updateComponent函数（里面调用了vue上的 _update 方法， _update 方法中传递了vue的 _render 函数渲染出来的vnode以及hydrating），又新建了一个 <span style="color:red;">渲染watcher</span>(后期发生变化，进行更新的时候，会执行渲染watcher中的updateComponent方法，从而重新渲染了一次)</p><p><img src="$mount.png" alt="$mount"></p><p>该过程主要做了：对options.render进行一个判断，看看是否书写了render函数，如果没有写，则对template进行解析，(其中没有template的时候，会根据getOuterHTML来得到模版字符串)，然后会根据template进行编译（使用compileToFunction），编译得到render函数以及staticRenderFns静态render函数。因为vue只认render函数。<br><br>有了render函数之后，就会调用mount.call(this,el,hydrating)，这个mount函数其实就是vue.prototype.$mount。然后就会执行上面的过程（$mount）</p><h3 id="4-compile"><a href="#4-compile" class="headerlink" title="4. compile"></a>4. compile</h3><p>函数compileToFunction来进行编译，拿到render渲染函数以及staticRenderFns静态render函数</p><h3 id="5-render"><a href="#5-render" class="headerlink" title="5. render"></a>5. render</h3><p>_render方法是实例的一个私有方法，它用来把实例渲染成vnode（虚拟Node）。<br><img src="render.png" alt="_render"><br>vnode = render.call(vm. _renderProxy, vm.$createElement);<br>其中vm. _renderProxy是上下文，在生产环境下，就是vm实例，在开发环境下是一个Proxy实例。(会在init过程中有下面的代码)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (process.env.NODE_ENV !== &apos;production&apos;) &#123;</span><br><span class="line">  initProxy(vm);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  vm._renderProxy = vm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>$createElemt在initRender中定义，initRender函数在init中执行。在$createElement函数中调用了createElement方法，createElement方法会返回一个VNode</p><h3 id="6-vnode"><a href="#6-vnode" class="headerlink" title="6. vnode"></a>6. vnode</h3><p>产生的前提：浏览器中的DOM比较庞大，并且设计的比较复杂，频繁地去更新DOM，也会产生性能问题。Virtual DOM 使用js对象来描述DOM。<br>Virtual DOM除了数据结构的定义，映射到真实的DOM上，还需要经历VNode的create、diff、patch等过程。而Vue中的createElement就是VNode的create。</p><p><img src="createElement.png" alt="createElement"></p><p>createElement方法调用的是 _createElement方法，在 _createElement方法中，对children做了normalize处理（也就是将children变成一维数组，涉及到的方法有：normalizeChildren，normalizeArrayChildren，simpleNormalizeChildren）</p><h3 id="7-patch"><a href="#7-patch" class="headerlink" title="7. patch"></a>7. patch</h3><blockquote><p>通过 _render函数以及createElement函数拿到了VNode，如何渲染到真实DOM上呢？</p></blockquote><p>通过vue中 _update方法，将VNode渲染成真实的DOM，此方法会在两种情况下被调用：首次渲染，数据更新。</p><p><img src="update.png" alt="update"></p><p>其中，会走到vm.<strong> patch </strong> 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.__ patch __ = inBrowser ? patch : noop;</span><br></pre></td></tr></table></figure></p><p><br>在服务器端是没有DOM这个概念的，所以不在客户端中，则是不需要渲染成真实DOM的。<br>调用<strong>patch</strong>方法的时候，第一个参数是真实的DOM，第二个参数是我们得到的VNode。通过<strong>patch</strong>方法中的createElm将VNode挂载到真实的DOM上，(如果有子节点，则递归调用createElm，没有子节点，则直接创建一个DOM)，最后通过insert方法插入真实DOM中（里面分情况调用了insertBefore与appendChild）。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;数据驱动是vue.js的一个重要的思想。数据驱动：视图根据数据驱动生成，我们不会通过直接修改dom来修改视图，会通过修改数据来完成对视图的修改。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Flow初识</title>
+    <link href="http://yoursite.com/2018/10/06/Flow%E5%88%9D%E8%AF%86/"/>
+    <id>http://yoursite.com/2018/10/06/Flow初识/</id>
+    <published>2018-10-06T02:35:16.000Z</published>
+    <updated>2018-10-08T02:26:22.622Z</updated>
+    
+    <content type="html"><![CDATA[<p>借助学习vue.js源码，在其过程中，认识到了Flow，该篇主要介绍一下最基本的Flow<br><a id="more"></a></p><h3 id="初识Flow"><a href="#初识Flow" class="headerlink" title="初识Flow"></a>初识Flow</h3><h4 id="1-是什么？"><a href="#1-是什么？" class="headerlink" title="1. 是什么？"></a>1. 是什么？</h4><p>Flow是一种静态类型检查工具，是一种工具。</p><blockquote><p>静态类型检查： 在编辑期间尽早发现（由类型引起的）bug，又不影响代码运行（不需要运行时动态检查类型）</p></blockquote><h4 id="2-Flow的工作方式"><a href="#2-Flow的工作方式" class="headerlink" title="2. Flow的工作方式"></a>2. Flow的工作方式</h4><h5 id="2-1-类型推断"><a href="#2-1-类型推断" class="headerlink" title="2.1 类型推断"></a>2.1 类型推断</h5><blockquote><p>通过变量使用上下文来推断出变量类型，然后根据这些推断来检查类型</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/``</span><br><span class="line">function split(str) &#123;</span><br><span class="line">  return str.split(&apos; &apos;)</span><br><span class="line">&#125;</span><br><span class="line">split(11)</span><br></pre></td></tr></table></figure><p><span style="color:red;">会报错</span>：原因是我们期待的是字符串类型，但是传入的是数字类型</p><h5 id="2-2-类型注释"><a href="#2-2-类型注释" class="headerlink" title="2.2 类型注释"></a>2.2 类型注释</h5><blockquote><p>事先注释好我们期待的类型，Flow会基于这些注释来判断</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/</span><br><span class="line"></span><br><span class="line">function add(x, y)&#123;</span><br><span class="line">  return x + y</span><br><span class="line">&#125;</span><br><span class="line">add(&apos;Hello&apos;, 11)</span><br></pre></td></tr></table></figure><p>上面的代码<span style="color:red;">不会报错</span>，Flow的检查不出来，因为‘+’可以用于字符串也可以用于数字<br>则，此时就需要使用类型注释（：）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/</span><br><span class="line"></span><br><span class="line">function add(x: number, y: number): number &#123;</span><br><span class="line">  return x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(&apos;Hello&apos;, 11)</span><br></pre></td></tr></table></figure><ul><li>数组类型注释格式：Array&lt; T &gt;，T 表示数组中每项的数据类型</li><li>一个变量可能多个类型时，可以使用<span style="color:red;"> ‘|’ </span>来连接两种类型，表示或</li><li>若想任意类型<span style="color:red;"> T </span>可以为 null 或者 undefined，只需类似如下写成可以使用<span style="color:red;"> ?T </span>的格式即可</li></ul><hr><p>参考：<a href="https://flow.org/en/docs/getting-started/" target="_blank" rel="noopener">Flow官网</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;借助学习vue.js源码，在其过程中，认识到了Flow，该篇主要介绍一下最基本的Flow&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>vue源码解析</title>
+    <link href="http://yoursite.com/2018/09/30/vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    <id>http://yoursite.com/2018/09/30/vue源码解析/</id>
+    <published>2018-09-30T08:33:47.000Z</published>
+    <updated>2018-09-30T08:34:47.229Z</updated>
+    
+    <content type="html"><![CDATA[<p>开始学习vue<br><a id="more"></a></p><h2 id="vue源码解析"><a href="#vue源码解析" class="headerlink" title="vue源码解析"></a>vue源码解析</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h3 id="数据驱动"><a href="#数据驱动" class="headerlink" title="数据驱动"></a>数据驱动</h3><h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><h3 id="深入响应式原理"><a href="#深入响应式原理" class="headerlink" title="深入响应式原理"></a>深入响应式原理</h3><h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h3 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h3><h3 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;开始学习vue&lt;br&gt;
     
     </summary>
     
