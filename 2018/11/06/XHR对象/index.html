@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="借助学习vue.js源码，在其过程中，认识到了Flow，该篇主要介绍一下最基本的Flow">
+<meta name="description" content="XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flow初识">
-<meta property="og:url" content="http://yoursite.com/2018/10/06/Flow初识/index.html">
+<meta property="og:title" content="XHR对象">
+<meta property="og:url" content="http://yoursite.com/2018/11/06/XHR对象/index.html">
 <meta property="og:site_name" content="找试卷">
-<meta property="og:description" content="借助学习vue.js源码，在其过程中，认识到了Flow，该篇主要介绍一下最基本的Flow">
+<meta property="og:description" content="XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-29T09:43:14.759Z">
+<meta property="og:updated_time" content="2018-11-26T05:54:32.258Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Flow初识">
-<meta name="twitter:description" content="借助学习vue.js源码，在其过程中，认识到了Flow，该篇主要介绍一下最基本的Flow">
+<meta name="twitter:title" content="XHR对象">
+<meta name="twitter:description" content="XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/06/Flow初识/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/06/XHR对象/"/>
 
 
 
 
 
-  <title>Flow初识 | 找试卷</title>
+  <title>XHR对象 | 找试卷</title>
   
 
 
@@ -250,7 +250,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/06/Flow初识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/XHR对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoShijuan">
@@ -267,7 +267,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Flow初识</h1>
+          <h1 class="post-title" itemprop="name headline">XHR对象</h1>
         
 
         <div class="post-meta">
@@ -279,8 +279,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-06T10:35:16+08:00">
-                2018-10-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-06T17:55:10+08:00">
+                2018-11-06
               </time>
             
 
@@ -339,29 +339,7 @@
       
 
       
-        <p>借助学习vue.js源码，在其过程中，认识到了Flow，该篇主要介绍一下最基本的Flow<br><a id="more"></a></p>
-<h3 id="初识Flow"><a href="#初识Flow" class="headerlink" title="初识Flow"></a>初识Flow</h3><h4 id="1-是什么？"><a href="#1-是什么？" class="headerlink" title="1. 是什么？"></a>1. 是什么？</h4><p>Flow是一种静态类型检查工具，是一种工具。</p>
-<blockquote>
-<p>静态类型检查： 在编辑期间尽早发现（由类型引起的）bug，又不影响代码运行（不需要运行时动态检查类型）</p>
-</blockquote>
-<h4 id="2-Flow的工作方式"><a href="#2-Flow的工作方式" class="headerlink" title="2. Flow的工作方式"></a>2. Flow的工作方式</h4><h5 id="2-1-类型推断"><a href="#2-1-类型推断" class="headerlink" title="2.1 类型推断"></a>2.1 类型推断</h5><blockquote>
-<p>通过变量使用上下文来推断出变量类型，然后根据这些推断来检查类型</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/``</span><br><span class="line">function split(str) &#123;</span><br><span class="line">  return str.split(&apos; &apos;)</span><br><span class="line">&#125;</span><br><span class="line">split(11)</span><br></pre></td></tr></table></figure>
-<p><span style="color:red;">会报错</span>：原因是我们期待的是字符串类型，但是传入的是数字类型</p>
-<h5 id="2-2-类型注释"><a href="#2-2-类型注释" class="headerlink" title="2.2 类型注释"></a>2.2 类型注释</h5><blockquote>
-<p>事先注释好我们期待的类型，Flow会基于这些注释来判断</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/</span><br><span class="line"></span><br><span class="line">function add(x, y)&#123;</span><br><span class="line">  return x + y</span><br><span class="line">&#125;</span><br><span class="line">add(&apos;Hello&apos;, 11)</span><br></pre></td></tr></table></figure>
-<p>上面的代码<span style="color:red;">不会报错</span>，Flow的检查不出来，因为‘+’可以用于字符串也可以用于数字<br>则，此时就需要使用类型注释（：）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/</span><br><span class="line"></span><br><span class="line">function add(x: number, y: number): number &#123;</span><br><span class="line">  return x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(&apos;Hello&apos;, 11)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>数组类型注释格式：Array&lt; T &gt;，T 表示数组中每项的数据类型</li>
-<li>一个变量可能多个类型时，可以使用<span style="color:red;"> ‘|’ </span>来连接两种类型，表示或</li>
-<li>若想任意类型<span style="color:red;"> T </span>可以为 null 或者 undefined，只需类似如下写成可以使用<span style="color:red;"> ?T </span>的格式即可</li>
-</ul>
-<hr>
-<p>参考：<a href="https://flow.org/en/docs/getting-started/" target="_blank" rel="noopener">Flow官网</a></p>
+        <p>XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。</p>
 
       
     </div>
@@ -386,8 +364,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/30/vue源码解析/" rel="next" title="vue源码解析">
-                <i class="fa fa-chevron-left"></i> vue源码解析
+              <a href="/2018/10/29/客户端数据存储/" rel="next" title="客户端数据存储">
+                <i class="fa fa-chevron-left"></i> 客户端数据存储
               </a>
             
           </div>
@@ -396,8 +374,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/09/vue源码分析-数据驱动/" rel="prev" title="vue源码分析 - 数据驱动">
-                vue源码分析 - 数据驱动 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/26/electron学习/" rel="prev" title="electron学习">
+                electron学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -450,17 +428,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,22 +484,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初识Flow"><span class="nav-text">初识Flow</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-是什么？"><span class="nav-text">1. 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Flow的工作方式"><span class="nav-text">2. Flow的工作方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-类型推断"><span class="nav-text">2.1 类型推断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-类型注释"><span class="nav-text">2.2 类型注释</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

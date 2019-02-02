@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常见的客户端数据存储：Cookie，Web Storage。其中Web Storage主要包含localStorage，sessionStorage，globalStorage这三种，Web Storage规范出现主要是为了提供一种除了cookie之外的会话存储的途径，以及一种可以存储大量可以跨会话存在的数据的机制。Cookie也叫做HTTP Cookie，最初在客户端是用于存储会话信息的。👓�">
+<meta property="og:type" content="article">
+<meta property="og:title" content="客户端数据存储">
+<meta property="og:url" content="http://yoursite.com/2018/10/29/客户端数据存储/index.html">
+<meta property="og:site_name" content="找试卷">
+<meta property="og:description" content="常见的客户端数据存储：Cookie，Web Storage。其中Web Storage主要包含localStorage，sessionStorage，globalStorage这三种，Web Storage规范出现主要是为了提供一种除了cookie之外的会话存储的途径，以及一种可以存储大量可以跨会话存在的数据的机制。Cookie也叫做HTTP Cookie，最初在客户端是用于存储会话信息的。👓�">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-31T09:38:36.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="客户端数据存储">
+<meta name="twitter:description" content="常见的客户端数据存储：Cookie，Web Storage。其中Web Storage主要包含localStorage，sessionStorage，globalStorage这三种，Web Storage规范出现主要是为了提供一种除了cookie之外的会话存储的途径，以及一种可以存储大量可以跨会话存在的数据的机制。Cookie也叫做HTTP Cookie，最初在客户端是用于存储会话信息的。👓�">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/29/客户端数据存储/"/>
+
+
+
+
+
+  <title>客户端数据存储 | 找试卷</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">找试卷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/客户端数据存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoShijuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="找试卷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">客户端数据存储</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T19:35:32+08:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>常见的客户端数据存储：Cookie，Web Storage。其中Web Storage主要包含localStorage，sessionStorage，globalStorage这三种，Web Storage规范出现主要是为了提供一种除了cookie之外的会话存储的途径，以及一种可以存储大量可以跨会话存在的数据的机制。Cookie也叫做HTTP Cookie，最初在客户端是用于存储会话信息的。👓👌咳咳，接下来，我们深入的了解一下Cookie以及Web Storage吧～～～<br><a id="more"></a></p>
+<h4 id="1-Cookie"><a href="#1-Cookie" class="headerlink" title="1. Cookie"></a>1. Cookie</h4><p>Cookie也就是HTTP Cookie，最初在客户端用于存储会话信息，设置完cookie后，在指定的域地址中，请求中带有cookie的信息（Request Headers中就会包含cookie），cookie的名和值在传送时是需要通过URL编码，否则会乱码。<br>该标准要求服务器对 任意 HTTP 请求发送 Set-Cookie HTTP 头作为响应的一部分，其中包含会话信息。浏览器会存储这样的会话信息，并在这之后，通过为每个请求添加 Cookie HTTP 头将信息发送回服务器。</p>
+<h5 id="1-1-限制"><a href="#1-1-限制" class="headerlink" title="1.1 限制"></a>1.1 限制</h5><p>访问限制：在某个环境下设置了cookie，那么此cookie是绑定在此特定的域名下，以后再给创建它的域名发送请求时，都会包含这个cookie。这个让cookie只能在创建它的域名下被访问，其它环境不可以进行访问。<br>个数限制：不同浏览器下，每个域中所能包含的cookie个数也是有限的。当单个域名下的cookie数量超出限制后，浏览器会删除以前设置的cookie，但是IE与Opera会删除最少使用的cookie，FireFox是随机删除。<br>长度限制：cookie长度，在大多数浏览器下，大约是4096B的长度限制。这个长度限制是对每个域下的所有的cookie的总限制，而不是单个cookie的长度限制。超出长度限制，则浏览器会默默地将cookie丢掉。</p>
+<h5 id="1-2-cookie构成"><a href="#1-2-cookie构成" class="headerlink" title="1.2 cookie构成"></a>1.2 cookie构成</h5><ol>
+<li>名称name： cookie名称不区分大小写，相同字母，大小写不一样的，会被当成一个cookie。在实际中，最好定义以及后面使用的时候，要相同大小写相同字母，因为有些浏览器中cookie键值对需要进行URL编码。</li>
+<li>值value： 对应cookie名称的值，是字符串，需要通过URL编码。</li>
+<li>域domain： cookie的域限制，指定cookie在哪个域下被访问。</li>
+<li>地址path： 指定域中的哪个路径，应该向服务器端发送cookie</li>
+<li>失效时间expires： cookie被删除的时间戳。到达结束时间的时候，cookie会被删除。这个值要是GMT格式的日期(Wdy, DD-Mon-YYYY HH:MM:SS GMT)，如果设置的时间是在当前日期之前，则cookie会立马被删除。</li>
+<li>安全标志secure： 指定之后，cookie只有在SSL连接的时候才能发送到服务器（也就是https中只能在https的域中，不能发送给同域名的http中）。是一个非键值对，就一个单独的secure单词标志。</li>
+</ol>
+<h5 id="1-3-cookie的操作"><a href="#1-3-cookie的操作" class="headerlink" title="1.3 cookie的操作"></a>1.3 cookie的操作</h5><p>在浏览器中，cookie是挂载在document上的。<br><strong>获取</strong>： 通过document.cookie来获取当前页面可用的cookie字符串（一个使用分号连接起来的键值对字符串），并且得到的所有的键值对都是经过URL编码的，所以需要通过decodeURIComponent来解码<br><strong>设置</strong>： document.cookie可以设置一个新的cookie字符串，这个cookie字符串会被解析并添加到现有的cookie集合中。设置document.cookie并不会覆盖掉原来的cookie，而是在原先的基础上添加（只有在设置的cookie名相同，则会覆盖掉原先设置的同名cookie的值）。在设置时，最好每次对键值对都进行一次encodeURIComponent编码，防止中文乱码情况<br><strong>删除</strong>：没有直接删除的方法，但是可以通过将有效时间设置成现在之前的时间，从而使得cookie删除</p>
+<pre><code>const COOKIE_UTIL = {
+    get: (name) =&gt; {
+        var cookieName = encodeURIComponent(name) + &apos;=&apos;,
+             cookieStart = document.cookie.indexOf(cookieName),
+             cookieValue = &apos;&apos;;
+        if (cookieStart &gt; -1) {
+            var cookieEnd = document.cookie.indexOf(&apos;;&apos;, cookieStart);            cookieEnd = cookieEnd === -1 ? document.cookie.length : cookieEnd;
+            cookieValue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+        }
+        return cookieValue;     
+    },
+    set: (name, value, expires, path, domain, secure) =&gt; {
+        var cookieText = encodeURIComponent(name) + &quot;=&quot; + encodeURIComponent(value);
+        if (expires instanceof Date) {
+            cookieText += &apos;; expires=&apos; + expires.toGMTString();
+        }
+        if (path) {
+            cookieText += &apos;; path=&apos; + path;
+        }
+        if (domain) {
+            cookieText += &apos;; domain=&apos; + domain;
+        }
+        if (secure) {
+            cookieText += &apos;;secure&apos;;    
+        }
+        document.cookie = cookieText;
+    },
+    unset: (name, path, domain, secure) =&gt; {
+        this.set(name, &quot;&quot;, new Date(0), path, domain, secure);
+    }
+};
+</code></pre><h4 id="2-Web-Storage"><a href="#2-Web-Storage" class="headerlink" title="2. Web Storage"></a>2. Web Storage</h4><p>Web Storage是一个标准，包含了sessionStorage，localStorage，globalStorage对象，都是直接挂载于window对象上的。</p>
+<h5 id="2-1-Storage类型"><a href="#2-1-Storage类型" class="headerlink" title="2.1 Storage类型"></a>2.1 Storage类型</h5><p>Storage实例有如下几个方法：<br><strong>1. 增</strong> getItem(name) 指定名称name获取对应的值；key(index) 获取index处的名称<br><strong>2. 删</strong> clear() 删除所有的值； 直接使用对象的删除 delete<br><strong>3. 改</strong> setItem(name, value) 为指定name设置一个对应的值<br><strong>4. 查</strong> getItem(name) 获取指定name的值<br>属性：length ==&gt; Storage实例中含有几对键值对</p>
+<h5 id="2-2-sessionStorage对象"><a href="#2-2-sessionStorage对象" class="headerlink" title="2.2 sessionStorage对象"></a>2.2 sessionStorage对象</h5><p>sessionStorage是用于特定会话中存储数据，并且数据只保留到<span class="font-color-red">浏览器关闭</span>。存储在 sessionStorage 中的数据只能由最初给对象存储数据的页面访问到，所以对多页面应用有限制。Storage实例含有的方法和属性，sessionStorage也拥有。<br><strong>范围限制</strong>：要访问同一个localStorage，需要在同一协议，同一域名，同一端口号的页面。<br><strong>存储时间</strong>：一直保留到浏览器关闭。</p>
+<h5 id="2-3-localStorage对象"><a href="#2-3-localStorage对象" class="headerlink" title="2.3 localStorage对象"></a>2.3 localStorage对象</h5><p>localStorage是在修订后的HTML5规范中取代了globalStorage。localStorage是Storage实例，因此拥有Storage类型的所有方法以及属性。<br><strong>范围限制</strong>：要访问同一个localStorage，需要在同一协议，同一域名，同一端口号的页面。<br><strong>存储时间</strong>：一直保留到主动使用方法删除或者用户清除浏览器缓存。</p>
+<h5 id="2-4-globalStorage对象"><a href="#2-4-globalStorage对象" class="headerlink" title="2.4 globalStorage对象"></a>2.4 globalStorage对象</h5><p>globalStorage主要目的是为了跨域会话，但是也有特定的限制。在使用globalStorage，首先要指定哪些区域可以访问该数据，可以通过方括号标记使用属性来实现。<br>eg: globalStorage[‘my.com’].name = ‘zhaoshijuan’<br>这里访问的globalStorage[‘my.com’]是针对域名‘my.com’的存储空间<br>⚠️ globalStorage不是Storage实例，而上面的globalStorage[‘my.com’]才是Storage对象，因此拥有Storage上的方法以及属性的是globalStorage[‘my.com’]这个对象。<br>globalStorage[‘’].name = ‘zhaoshijuan’，这个设置是对任何人都看见，没有域限制。<br>globalStorage[‘net’].name = ‘zhaoshijuan’，这个设置会让所有以.net结束的域名访问。<br>在不确定域名时，可以通过这样设置：globalStorage[‘location.host’].name = ‘zhaoshijuan’<br><strong>范围限制</strong>：根据globalStorage后[]括号而定。<br><strong>存储时间</strong>：如果没有使用removeItem或者delete删除，会一直保留到用户删除浏览器缓存为止。</p>
+<blockquote>
+<p>Stroge对象中存储的都是字符串</p>
+</blockquote>
+<h5 id="2-5-Storage事件"><a href="#2-5-Storage事件" class="headerlink" title="2.5 Storage事件"></a>2.5 Storage事件</h5><p>对Storage对象进行的修改，都会触发storage事件，storage事件是绑定在document上的。storage事件event对象含有如下几个属性：<br>domain：发生变化的存储空间的域名<br>key：变化的键名<br>newValue：修改值，则是新值；删除值，则是undefined<br>oldValue：键对应值被修改之前的值</p>
+<p>addEventListener(document, ‘storage’, function(event) {})</p>
+<h4 id="3-Cookie与Web-Storage对比"><a href="#3-Cookie与Web-Storage对比" class="headerlink" title="3. Cookie与Web Storage对比"></a>3. Cookie与Web Storage对比</h4><h5 id="3-1-区别"><a href="#3-1-区别" class="headerlink" title="3.1 区别"></a>3.1 区别</h5><ol>
+<li>存储内容是否发送到服务器端：当设置了Cookie后，数据会发送到服务器端，造成一定的宽带浪费； web storage,会将数据保存到本地，不会造成宽带浪费；</li>
+<li>数据存储大小不同：Cookie数据不能超过4K,适用于会话标识；web storage数据存储可以达到5M;</li>
+<li>数据存储的有效期限不同：cookie只在设置了Cookid过期时间之前一直有效，即使关闭窗口或者浏览器；sessionStorage,仅在关闭浏览器之前有效；localStorage,数据存储永久有效；</li>
+<li>作用域不同：cookie和localStorage是在同源同窗口中都是共享的；sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；</li>
+</ol>
+<h5 id="3-2-Web-Storage相比Cookie的优势"><a href="#3-2-Web-Storage相比Cookie的优势" class="headerlink" title="3.2 Web Storage相比Cookie的优势"></a>3.2 Web Storage相比Cookie的优势</h5><ol>
+<li>存储空间更大：IE8下每个独立的存储空间为10M，其他浏览器实现略有不同，但都比Cookie要大很多。</li>
+<li>存储内容不会发送到服务器：当设置了Cookie后，Cookie的内容会随着请求一并发送的服务器，这对于本地存储的数据是一种带宽浪费。而Web Storage中的数据则仅仅是存在本地，不会与服务器发生任何交互。</li>
+<li>更多丰富易用的接口：Web Storage提供了一套更为丰富的接口，如setItem,getItem,removeItem,clear等,使得数据操作更为简便。cookie需要自己封装。</li>
+<li>独立的存储空间：每个域（包括子域）有独立的存储空间，各个存储空间是完全独立的，因此不会造成数据混乱。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/26/Function对象/" rel="next" title="Function对象">
+                <i class="fa fa-chevron-left"></i> Function对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/06/XHR对象/" rel="prev" title="XHR对象">
+                XHR对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="zhaoShijuan" />
+            
+              <p class="site-author-name" itemprop="name">zhaoShijuan</p>
+              <p class="site-description motion-element" itemprop="description">Let life be beautiful like summer flowers and death like autumn leaves</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Cookie"><span class="nav-text">1. Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-限制"><span class="nav-text">1.1 限制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-cookie构成"><span class="nav-text">1.2 cookie构成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-cookie的操作"><span class="nav-text">1.3 cookie的操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Web-Storage"><span class="nav-text">2. Web Storage</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-Storage类型"><span class="nav-text">2.1 Storage类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-sessionStorage对象"><span class="nav-text">2.2 sessionStorage对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-localStorage对象"><span class="nav-text">2.3 localStorage对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-globalStorage对象"><span class="nav-text">2.4 globalStorage对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-Storage事件"><span class="nav-text">2.5 Storage事件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Cookie与Web-Storage对比"><span class="nav-text">3. Cookie与Web Storage对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-区别"><span class="nav-text">3.1 区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-Web-Storage相比Cookie的优势"><span class="nav-text">3.2 Web Storage相比Cookie的优势</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoShijuan</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

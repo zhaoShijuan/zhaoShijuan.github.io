@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e22a3b;
+  background: #ecff4f;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2990,4 +2990,34 @@ pre .javascript .function {
   .post-body {
     text-align: justify;
   }
+}
+.font-color-red {
+  color: #f00;
+}
+.font-color-yellow {
+  color: #ff0;
+}
+.font-color-darkgreen {
+  color: #006400;
+}
+.font-color-lightseagreen {
+  color: #20b2aa;
+}
+.font-color-forestgreen {
+  color: #20b2aa;
+}
+.font-color-deeppink {
+  color: #ff1493;
+}
+.font-color-dustgrey {
+  color: #655;
+}
+.text-important {
+  display: inline-block;
+  border-radius: 2px;
+  background-color: #ff1493;
+  padding: 0.25rem 0.5rem;
+  margin: 0;
+  font-size: 0.85em;
+  color: #fff;
 }

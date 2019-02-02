@@ -77,26 +77,29 @@
 
 
 
-<meta name="description" content="数据驱动是vue.js的一个重要的思想。数据驱动：视图根据数据驱动生成，我们不会通过直接修改dom来修改视图，会通过修改数据来完成对视图的修改。">
+<meta name="description" content="终于弄懂了定义一个vue实例到渲染成页面DOM的整个过程，心情炒鸡棒，今天打算开始了解一下vue的另外一个核心思想 — 组件化。所谓组件化，也就是将页面根据一些规则（业务/逻辑等）划分成一个个组件（Component），每个组件的css,js,模版,图片等资源都相互独立，每个组件的资源都放在一起开发维护。这样便于维护以及实现可复用～～～">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue源码分析 - 数据驱动">
-<meta property="og:url" content="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/index.html">
+<meta property="og:title" content="vue源码分析-组件化">
+<meta property="og:url" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/index.html">
 <meta property="og:site_name" content="找试卷">
-<meta property="og:description" content="数据驱动是vue.js的一个重要的思想。数据驱动：视图根据数据驱动生成，我们不会通过直接修改dom来修改视图，会通过修改数据来完成对视图的修改。">
+<meta property="og:description" content="终于弄懂了定义一个vue实例到渲染成页面DOM的整个过程，心情炒鸡棒，今天打算开始了解一下vue的另外一个核心思想 — 组件化。所谓组件化，也就是将页面根据一些规则（业务/逻辑等）划分成一个个组件（Component），每个组件的css,js,模版,图片等资源都相互独立，每个组件的资源都放在一起开发维护。这样便于维护以及实现可复用～～～">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://i.imgur.com/lny4o5V.png">
-<meta property="og:image" content="https://i.imgur.com/PNzomC5.png">
-<meta property="og:image" content="https://i.imgur.com/Yt9N7Rl.png">
-<meta property="og:image" content="https://i.imgur.com/UHwd04N.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/$mount.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/render.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/createElement.png">
-<meta property="og:image" content="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/update.png">
-<meta property="og:updated_time" content="2018-10-29T09:43:38.166Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/createElement.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/tag_detail.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/createComponent.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/extend.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/createComponent2.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/installComponentHooks.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/createComponent3.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/componentVNodeHooks-init&prepatch.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/createComponentInstanceForVnode.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/sub.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/initInternalComponent.png">
+<meta property="og:updated_time" content="2018-10-29T09:44:17.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue源码分析 - 数据驱动">
-<meta name="twitter:description" content="数据驱动是vue.js的一个重要的思想。数据驱动：视图根据数据驱动生成，我们不会通过直接修改dom来修改视图，会通过修改数据来完成对视图的修改。">
-<meta name="twitter:image" content="https://i.imgur.com/lny4o5V.png">
+<meta name="twitter:title" content="vue源码分析-组件化">
+<meta name="twitter:description" content="终于弄懂了定义一个vue实例到渲染成页面DOM的整个过程，心情炒鸡棒，今天打算开始了解一下vue的另外一个核心思想 — 组件化。所谓组件化，也就是将页面根据一些规则（业务/逻辑等）划分成一个个组件（Component），每个组件的css,js,模版,图片等资源都相互独立，每个组件的资源都放在一起开发维护。这样便于维护以及实现可复用～～～">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/15/vue源码分析-组件化/createElement.png">
 
 
 
@@ -126,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/15/vue源码分析-组件化/"/>
 
 
 
 
 
-  <title>vue源码分析 - 数据驱动 | 找试卷</title>
+  <title>vue源码分析-组件化 | 找试卷</title>
   
 
 
@@ -259,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/vue源码分析-数据驱动/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/vue源码分析-组件化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoShijuan">
@@ -276,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue源码分析 - 数据驱动</h1>
+          <h1 class="post-title" itemprop="name headline">vue源码分析-组件化</h1>
         
 
         <div class="post-meta">
@@ -288,8 +291,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-09T10:49:58+08:00">
-                2018-10-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-15T21:39:06+08:00">
+                2018-10-15
               </time>
             
 
@@ -348,39 +351,10 @@
       
 
       
-        <p>数据驱动是vue.js的一个重要的思想。数据驱动：视图根据数据驱动生成，我们不会通过直接修改dom来修改视图，会通过修改数据来完成对视图的修改。<br><a id="more"></a></p>
-<blockquote>
-<p>Runtime-only: 需要借助类似于webpack的vue-loader来将.vue文件编译成JavaScript。因为是在编译阶段做的，所以只包含运行时的Vue.js代码，代码体积更轻便。<br><br>Runtime + compiler: 没有对代码做预编译。因为在Vue.js2.0中，最后渲染都是通过render函数，如果编写了template，则需要编译成render函数，而这个编译过程发生在运行时，所以需要带有编译器的版本，并且这个编译过程对性能会有一定的损耗。</p>
-</blockquote>
-<h3 id="1-new"><a href="#1-new" class="headerlink" title="1. new"></a>1. new</h3><blockquote>
-<p>new Vue()一个实例干了什么？</p>
-</blockquote>
-<p><img src="https://i.imgur.com/lny4o5V.png" alt="new vue时的代码"><br>new Vue()后只会判断使用的语法对不对，然后就调用已经挂载到Vue原型上的_init方法(通过initMixin(Vue))，在initMixin()之前，Vue上只有一个构造函数外加一个<strong>proto</strong>（也就是Object所含有的）。<br><img src="https://i.imgur.com/PNzomC5.png" alt="vue.prototype"></p>
-<h3 id="2-init"><a href="#2-init" class="headerlink" title="2. init"></a>2. init</h3><p>initMixin方法在Vue.prototype上挂载了一个_init方法<br><img src="https://i.imgur.com/Yt9N7Rl.png" alt=""><br>在initMixin方法中：先将options进行整合（具体先不管）；<br>后又进行了一系统的初始化：生命周期初始化（initLifecycle）、事件初始化（initEvents）、渲染（initRender）、callHook()、初始化数据（initState）以及一些其它的初始化(initInjections、initProvide)</p>
-<p>其中initState方法中含有initData方法(其中含有一个proxy(vm, “_data”, key)，为data中数据项进行一个代理设置)</p>
-<p><img src="https://i.imgur.com/UHwd04N.png" alt=""><br>也就是利用了Object.defineProperty()方法来设置访问器属性，从而实现了直接修改类似this.message = 12也就是修改了this._data.message = 12</p>
-<p>除了_data会使用proxy方法来进行一层设置代理，还会有_props，因此_data与_props里面定义的属性名称不能相同，不然就会出现覆盖的情况（写组件中经常就会遇见props中有一个a，data中也有一个a，则后期父组件修改a的值后，组件并不会跟着进行变化）</p>
-<h3 id="3-mount"><a href="#3-mount" class="headerlink" title="3. $mount"></a>3. $mount</h3><p>在initMixin方法的最后根据vm.$options.el是否存在来决定是否挂载</p>
-<p><code>if (vm.$options.el) {
-  vm.$mount(vm.$options.el);
-}</code></p>
-<p>$mount方法是挂载在vue构造函数prototype上的，里面直接调用的是mountComponent方法，后期又定义了updateComponent函数（里面调用了vue上的 _update 方法， _update 方法中传递了vue的 _render 函数渲染出来的vnode以及hydrating），又新建了一个 <span style="color:red;">渲染watcher</span>(后期发生变化，进行更新的时候，会执行渲染watcher中的updateComponent方法，从而重新渲染了一次)</p>
-<p><img src="$mount.png" alt="$mount"></p>
-<p>该过程主要做了：对options.render进行一个判断，看看是否书写了render函数，如果没有写，则对template进行解析，(其中没有template的时候，会根据getOuterHTML来得到模版字符串)，然后会根据template进行编译（使用compileToFunction），编译得到render函数以及staticRenderFns静态render函数。因为vue只认render函数。<br><br>有了render函数之后，就会调用mount.call(this,el,hydrating)，这个mount函数其实就是vue.prototype.$mount。然后就会执行上面的过程（$mount）</p>
-<h3 id="4-compile"><a href="#4-compile" class="headerlink" title="4. compile"></a>4. compile</h3><p>函数compileToFunction来进行编译，拿到render渲染函数以及staticRenderFns静态render函数</p>
-<h3 id="5-render"><a href="#5-render" class="headerlink" title="5. render"></a>5. render</h3><p>_render方法是实例的一个私有方法，它用来把实例渲染成vnode（虚拟Node）。<br><img src="render.png" alt="_render"><br>vnode = render.call(vm. _renderProxy, vm.$createElement);<br>其中vm. _renderProxy是上下文，在生产环境下，就是vm实例，在开发环境下是一个Proxy实例。(会在init过程中有下面的代码)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (process.env.NODE_ENV !== &apos;production&apos;) &#123;</span><br><span class="line">  initProxy(vm);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  vm._renderProxy = vm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>$createElemt在initRender中定义，initRender函数在init中执行。在$createElement函数中调用了createElement方法，createElement方法会返回一个VNode</p>
-<h3 id="6-vnode"><a href="#6-vnode" class="headerlink" title="6. vnode"></a>6. vnode</h3><p>产生的前提：浏览器中的DOM比较庞大，并且设计的比较复杂，频繁地去更新DOM，也会产生性能问题。Virtual DOM 使用js对象来描述DOM。<br>Virtual DOM除了数据结构的定义，映射到真实的DOM上，还需要经历VNode的create、diff、patch等过程。而Vue中的createElement就是VNode的create。</p>
-<p><img src="createElement.png" alt="createElement"></p>
-<p>createElement方法调用的是 _createElement方法，在 _createElement方法中，对children做了normalize处理（也就是将children变成一维数组，涉及到的方法有：normalizeChildren，normalizeArrayChildren，simpleNormalizeChildren）</p>
-<h3 id="7-patch"><a href="#7-patch" class="headerlink" title="7. patch"></a>7. patch</h3><blockquote>
-<p>通过 _render函数以及createElement函数拿到了VNode，如何渲染到真实DOM上呢？</p>
-</blockquote>
-<p>通过vue中 _update方法，将VNode渲染成真实的DOM，此方法会在两种情况下被调用：首次渲染，数据更新。</p>
-<p><img src="update.png" alt="update"></p>
-<p>其中，会走到vm.<strong> patch </strong> 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.__ patch __ = inBrowser ? patch : noop;</span><br></pre></td></tr></table></figure></p>
-<p><br>在服务器端是没有DOM这个概念的，所以不在客户端中，则是不需要渲染成真实DOM的。<br>调用<strong>patch</strong>方法的时候，第一个参数是真实的DOM，第二个参数是我们得到的VNode。通过<strong>patch</strong>方法中的createElm将VNode挂载到真实的DOM上，(如果有子节点，则递归调用createElm，没有子节点，则直接创建一个DOM)，最后通过insert方法插入真实DOM中（里面分情况调用了insertBefore与appendChild）。</p>
+        <p>终于弄懂了定义一个vue实例到渲染成页面DOM的整个过程，心情炒鸡棒，今天打算开始了解一下vue的另外一个核心思想 — <strong>组件化</strong>。<br>所谓组件化，也就是将页面根据一些规则（业务/逻辑等）划分成一个个组件（Component），每个组件的css,js,模版,图片等资源都相互独立，每个组件的资源都放在一起开发维护。这样便于维护以及实现可复用～～～<br><a id="more"></a></p>
+<h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><p><span class="text-important">组件的 vnode 是没有 children 的</span></p>
+<h4 id="1-createComponent"><a href="#1-createComponent" class="headerlink" title="1. createComponent"></a>1. createComponent</h4><p>组件的创建最开始走的和<a href="../../../../2018/10/09/vue源码分析-数据驱动/#more">vue源码分析-数据驱动</a>章节的流程是一样的。也是，new Vue() ==&gt; this._init() ==&gt; initMixin() ==&gt; $mount() ==&gt; mountComponent() ==&gt; _render() ==&gt; $createElement ==&gt; createElement() ==&gt; _createElement()<br>但是，在_createElement()方法中，有一个判断，与之前的不一样<span class="font-color-red">if (typeof tag === ‘string’)</span><br><img src="createElement.png" alt="判断">在<a href="../../../../2018/10/09/vue源码分析-数据驱动/#more">vue源码分析-数据驱动</a>章节中，tag是一个‘div’满足，则直接进入判断中。此处是一个组件，tag则是一个对象<br><img src="tag_detail.png" alt="tag的详情">所以，直接进入createComponent方法中，并且传入了一系列的参数（tag,data,context,children）,其中只有tag以及context有值，并且context其实就是Vue。<br><img src="createComponent.png" alt="createComponent">其中context.$options._base其实就是Vue构造函数，Ctor就是tag，Ctor如果是对象的话，则会调用Vue.extend方法<br><img src="extend.png" alt="extend">extend方法主要是根据Vue构造函数创建一个Sub构造函数，并且在把传入的options和Vue上面原本挂载的options进行一个mergeOptions，将options内容进行合并，并且赋值给Sub.options，则当前组件就会含有自己的options，以及挂载在Vue上的全局component，directive，filter<br>其中，validateComponentName是用来检验组件名称是否合法合理。<br>sub构造函数中含有this. _ init()其实也就是上一章节中 _ init方法。<br>因此后期就会再次进入 _ init方法创建组件，直接进入initInternalComponent方法中，在initInternalComponent方法中，就是一系统的赋值等。</p>
+<h4 id="2-patch"><a href="#2-patch" class="headerlink" title="2. patch"></a>2. patch</h4><p>在上面createComponent之后，进入createComponent方法中<br><img src="createComponent2.png" alt="createComponent2"><br>其中有一个installComponentHooks的方法，hooksToMerge其实就是一个对象，含有init，prepatch,insert,destory这四个字符串，通过便利，给data上添加上钩子函数（hook）<br><img src="installComponentHooks.png" alt="installComponentHooks"><br>将componentVNodeHooks对象中的相应的钩子函数赋值给data。<br>接着执行createComponent里面的方法new VNode，返回一个vnode<br>执行另外一个createComponent方法，调用原本赋值再vnode上的hook函数，将i的init方法赋值给i，再调用i方法<br><img src="createComponent3.png" alt="createComponent3"><br>进入原本hooksToMerge对象赋值给data上的init方法，通过createComponentInstanceForVnode函数创建组件对象<br><img src="componentVNodeHooks-init&amp;prepatch.png" alt="componentVNodeHooks-init&amp;prepatch"><br>在createComponentInstanceForVnode函数中，最终返回<span class="text-important">new vnode.componentOptions.Ctor(options)</span>，而vnode.componentOptions.Cto也就是我们在1. createComponent中利用Vue构造函数创建的一个Sub构造函数<br><img src="createComponentInstanceForVnode.png" alt="createComponentInstanceForVnode"><br>再次回到sub构造函数中，调用了this. _ init方法，其实也就是我们在<a href="../../../../2018/10/09/vue源码分析-数据驱动/#more">vue源码分析-数据驱动</a>章节中new Vue()后立马执行的初始化<br><img src="sub.png" alt="sub"><br>再次进入vue.prototype. _ init方法中，此时由于是组件，会调用initInternalComponent(vm, options);方法，而此时的没有el这个属性值没有值，则就不会去执行vm.$mount(vm.$options.el);<br>在initInternalComponent方法中，进行了一系列的赋值。其中注意：opts._parentVnode = parentVnode，则组件对象上的_parentVnode是一个占位node<br><img src="initInternalComponent.png" alt="initInternalComponent"><br>继续回到componentVNodeHooks中，调用child.$mount方法进行挂载，调用mountComponent，在mountComponent函数中定义 updateComponent = function () { vm._update(vm._render(), hydrating); }; 走起<a href="../../../../2018/10/09/vue源码分析-数据驱动/#more">vue源码分析-数据驱动</a>章节的流程（_render() ==&gt; $createElement ==&gt; createElement ==&gt; _createElement ==&gt; ）里层的元素组件进行上面的流程</p>
 
       
     </div>
@@ -405,8 +379,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/06/Flow初识/" rel="next" title="Flow初识">
-                <i class="fa fa-chevron-left"></i> Flow初识
+              <a href="/2018/10/10/JavaScript-数据存储/" rel="next" title="JavaScript - 数据存储">
+                <i class="fa fa-chevron-left"></i> JavaScript - 数据存储
               </a>
             
           </div>
@@ -415,8 +389,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/10/JavaScript-数据存储/" rel="prev" title="JavaScript - 数据存储">
-                JavaScript - 数据存储 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/23/Array数组之旅/" rel="prev" title="Array数组之旅">
+                Array数组之旅 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -544,7 +518,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-new"><span class="nav-text">1. new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-init"><span class="nav-text">2. init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-mount"><span class="nav-text">3. $mount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-compile"><span class="nav-text">4. compile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-render"><span class="nav-text">5. render</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-vnode"><span class="nav-text">6. vnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-patch"><span class="nav-text">7. patch</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件化"><span class="nav-text">组件化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-createComponent"><span class="nav-text">1. createComponent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-patch"><span class="nav-text">2. patch</span></a></li></ol></li></ol></div>
             
 
           </div>
