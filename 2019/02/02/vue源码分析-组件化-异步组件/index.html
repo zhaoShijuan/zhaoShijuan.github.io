@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。">
+<meta name="description" content="异步组件，一般用于按需加载。对于一些需要优化首屏加载的，会减少首屏的包体积，一般会将一些首屏组件变成异步组件。异步组件的实现方式有三种：工厂函数，promise异步组件，高级异步组件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XHR对象">
-<meta property="og:url" content="http://yoursite.com/2018/11/06/XHR对象/index.html">
+<meta property="og:title" content="vue源码分析-组件化-异步组件">
+<meta property="og:url" content="http://yoursite.com/2019/02/02/vue源码分析-组件化-异步组件/index.html">
 <meta property="og:site_name" content="找试卷">
-<meta property="og:description" content="XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。">
+<meta property="og:description" content="异步组件，一般用于按需加载。对于一些需要优化首屏加载的，会减少首屏的包体积，一般会将一些首屏组件变成异步组件。异步组件的实现方式有三种：工厂函数，promise异步组件，高级异步组件。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-26T05:54:32.258Z">
+<meta property="og:updated_time" content="2019-02-02T10:03:19.009Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XHR对象">
-<meta name="twitter:description" content="XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。">
+<meta name="twitter:title" content="vue源码分析-组件化-异步组件">
+<meta name="twitter:description" content="异步组件，一般用于按需加载。对于一些需要优化首屏加载的，会减少首屏的包体积，一般会将一些首屏组件变成异步组件。异步组件的实现方式有三种：工厂函数，promise异步组件，高级异步组件。">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/06/XHR对象/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/02/vue源码分析-组件化-异步组件/"/>
 
 
 
 
 
-  <title>XHR对象 | 找试卷</title>
+  <title>vue源码分析-组件化-异步组件 | 找试卷</title>
   
 
 
@@ -250,7 +250,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/XHR对象/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/vue源码分析-组件化-异步组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoShijuan">
@@ -267,7 +267,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">XHR对象</h1>
+          <h1 class="post-title" itemprop="name headline">vue源码分析-组件化-异步组件</h1>
         
 
         <div class="post-meta">
@@ -279,8 +279,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-06T17:55:10+08:00">
-                2018-11-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-02T12:55:27+08:00">
+                2019-02-02
               </time>
             
 
@@ -302,8 +302,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/vue源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">vue源码分析</span>
                   </a>
                 </span>
 
@@ -339,7 +339,11 @@
       
 
       
-        <p>XHR其实就是XMLHttpRequest对象，也就是Ajax的核心技术。XHR为向服务器发送请求以及解析服务器响应提供了接口，能够以异步的方式从服务器获取信息。</p>
+        <p>异步组件，一般用于按需加载。对于一些需要优化首屏加载的，会减少首屏的包体积，一般会将一些首屏组件变成异步组件。异步组件的实现方式有三种：工厂函数，promise异步组件，高级异步组件。<br><a id="more"></a></p>
+<h3 id="工厂函数"><a href="#工厂函数" class="headerlink" title="工厂函数"></a>工厂函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&apos;AysnComponent&apos;, function (resolve, reject) &#123;</span><br><span class="line">	// 这个特殊的require语法会告诉webpack，自动将编译后的代码分割成不同的块，这些块会通过Ajax请求加载</span><br><span class="line">	require([&apos;./components/AysnComponent&apos;], (res) =&gt; &#123;</span><br><span class="line">		resolve(res)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在定义组件时，使用Vue.component时，第二个参数传递的是一个对象。在这里，定义异步组件的时候，第二个参数传递的是一个函数。<br>在vue的源码中，会判断传递的第二个参数是否是一个普通的对象，如果是，则会使用<strong>extend</strong>来创建一个Ctor构造函数。如果不是，则直接将传递的参数挂载在Vue.options.components.AysnComponent（其中的AynsComponent就是定义的名称），通过resolveAsset来创建一个Ctor，这里的Ctor其实就是一个工厂函数（也就是我们传递进去的函数），通过函数resolveAyscComponent(Ctor, baseCtor, context)「其实，Ctor就是我们传递的函数，baseCtor就是Vue，context当前组件的实例vm」</p>
+<p>———————————————————————— 华丽的分割线 —————————————————————<br><br>「扩展 1 」：once，方法只执行一次的实现方式？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function once (fn: Function): Function &#123;</span><br><span class="line">	let called = true</span><br><span class="line">	return function () &#123;</span><br><span class="line">		if (!called) &#123;</span><br><span class="line">			called = false</span><br><span class="line">			fn.apply(this, arguments)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -364,8 +368,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/29/客户端数据存储/" rel="next" title="客户端数据存储">
-                <i class="fa fa-chevron-left"></i> 客户端数据存储
+              <a href="/2018/11/26/electron学习/" rel="next" title="electron学习">
+                <i class="fa fa-chevron-left"></i> electron学习
               </a>
             
           </div>
@@ -374,8 +378,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/26/electron学习/" rel="prev" title="electron学习">
-                electron学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/20/ES6基础知识/" rel="prev" title="ES6基础知识">
+                ES6基础知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -428,8 +432,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -484,6 +497,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂函数"><span class="nav-text">工厂函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
