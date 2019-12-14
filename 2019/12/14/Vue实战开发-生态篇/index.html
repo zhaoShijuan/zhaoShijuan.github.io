@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/12/14/Vue实战开发-生态篇/element-ui按需加载.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/12/14/Vue实战开发-生态篇/antdv按需加载.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/12/14/Vue实战开发-生态篇/iview按需加载.jpg">
-<meta property="og:updated_time" content="2019-12-14T05:28:31.286Z">
+<meta property="og:updated_time" content="2019-12-14T05:34:14.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue实战开发-生态篇">
 <meta name="twitter:description" content="Vue生态圈中，常用到的就是Vuex以及VueRouter，那么它们是如何实现的？以及是如何挂载到Vue实例上的？这些问题将是我下面👇内容的重点。当然也涉及到一些在开发中所使用到的组件库以及单元测试jest，这些只是一笔带过…">
@@ -287,7 +287,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-14T13:28:00+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-14T13:30:58+08:00">
                 2019-12-14
               </time>
             
@@ -345,7 +345,8 @@
 <li>创建Store实例：new Vuex.Store(options)</li>
 <li>挂载$store：new Vue({store: storeInstance})</li>
 </ol>
-<h3 id="Vuex原理"><a href="#Vuex原理" class="headerlink" title="Vuex原理"></a><div id="Vuex">Vuex原理</div></h3><blockquote>
+<h3 id="Vuex原理"><a href="#Vuex原理" class="headerlink" title="Vuex原理"></a><div id="Vuex">Vuex原理</div></h3><p><a href="Vuex.md">Vuex详解</a></p>
+<blockquote>
 <p>Vuex课后疑问</p>
 <ol>
 <li>Vuex是通过什么方式提供响应式数据的？</li>
@@ -389,7 +390,8 @@
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每个组件执行到beforeCreate钩子函数时，会执行到注册Vuex时混入的全局beforeCreate中VuexInit函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VuexInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> options = <span class="keyword">this</span>.$options;</span><br><span class="line">    <span class="keyword">if</span> (options.store) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$store = <span class="built_in">Object</span>.prototype.toString.call(options.store).includes(<span class="string">'Function'</span>)</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.parent &amp;&amp; <span class="keyword">this</span>.parent.$store) &#123;</span><br><span class="line">        <span class="comment">// 保证每个组件中的$store指向的是同一个$store；以及可以直接在每个组件中使用this.$store</span></span><br><span class="line">        <span class="keyword">this</span>.$store = <span class="keyword">this</span>.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="vueRouter原理"><a href="#vueRouter原理" class="headerlink" title="vueRouter原理"></a><div id="VueRouter">vueRouter原理</div></h3><blockquote>
+<h3 id="vueRouter原理"><a href="#vueRouter原理" class="headerlink" title="vueRouter原理"></a><div id="VueRouter">vueRouter原理</div></h3><p><a href="VueRouter.md">VueRouter详解</a></p>
+<blockquote>
 <p>VueRouter使用</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. VueRouter注册</span></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建VueRouter实例</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    mode: <span class="string">''</span>,</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">''</span>,</span><br><span class="line">            name: <span class="string">''</span>,</span><br><span class="line">            component: 组件,</span><br><span class="line">            children: []</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. VueRouter注入组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -514,7 +516,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/11/Vuex/" rel="next" title="">
+              <a href="/2019/12/11/Vue实战开发-生态篇/Vuex/" rel="next" title="">
                 <i class="fa fa-chevron-left"></i> 
               </a>
             

@@ -1,0 +1,396 @@
+<h2 id="VueRouter"><a href="#VueRouter" class="headerlink" title="VueRouter"></a>VueRouter</h2><ol>
+<li><p>在Vue组件中注册VueRouter</p>
+<pre><code class="JavaScript">Vue.use(VueRouter)
+</code></pre>
+</li>
+<li><p>定义（路由）组件</p>
+<p> 定义创建路由配置信息时所需要用到的组件。</p>
+</li>
+<li><p>创建VueRouter实例，并且配置路由匹配信息以及其他配置信息</p>
+<pre><code class="JavaScript"><span class="keyword">let</span> router = <span class="keyword">new</span> VueRouter({
+    routes: [
+        {<span class="attr">path</span>: <span class="string">''</span>, <span class="attr">name</span>: <span class="string">''</span>, <span class="attr">component</span>: componentName}
+    ]
+})
+</code></pre>
+</li>
+<li><p>Vue实例中挂载VueRouter实例</p>
+<pre><code class="JavaScript"><span class="keyword">new</span> Vue({
+    router
+})
+</code></pre>
+</li>
+</ol>
+<h2 id="路由注册"><a href="#路由注册" class="headerlink" title="路由注册"></a>路由注册</h2><h3 id="1-Vue-use-VueRouter"><a href="#1-Vue-use-VueRouter" class="headerlink" title="1. Vue.use(VueRouter)"></a>1. Vue.use(VueRouter)</h3><blockquote>
+<p>只有在new Vue实例时，传入routers配置执行install才是有意义的。</p>
+</blockquote>
+<p>Vue.use方法调用的是VueRouter中的install方法。VueRouter中install方法利用了Vue.mixin混入beforeCreate和destroyed钩子函数。</p>
+<pre><code class="JavaScript">Vue.mixin({
+    beforeCreate () {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.$options.router !== <span class="literal">undefined</span>) {
+            <span class="comment">// 根组件Vue实例</span>
+            <span class="keyword">this</span>._routerRoot = <span class="keyword">this</span>
+            <span class="comment">// 注册路由相关信息：$route, $router等</span>
+            <span class="keyword">this</span>._router = <span class="keyword">this</span>.$options.router
+            <span class="comment">// this._router实际是一个VueRouter实例</span>
+            <span class="keyword">this</span>._router.init(<span class="keyword">this</span>)
+            <span class="comment">// 将_route变成一个响应式的</span>
+            Vue.util.defineReactive(<span class="keyword">this</span>, <span class="string">'_route'</span>, <span class="keyword">this</span>._router.history.current)
+        } <span class="keyword">else</span> {
+            <span class="comment">// 非根组件</span>
+            <span class="keyword">this</span>._routerRoot = (<span class="keyword">this</span>.$parent || <span class="keyword">this</span>.$parent._routerRoot) || <span class="keyword">this</span>
+        }
+        <span class="comment">// 调用registerInstance方法，此方法会在RouterView组件中使用</span>
+        registerInstance(<span class="keyword">this</span>, <span class="keyword">this</span>)
+    },
+    destroyed () {
+        <span class="comment">// 销毁路由</span>
+        registerInstance(<span class="keyword">this</span>)
+    }
+})
+</code></pre>
+<p>在Vue原型上挂载了$router, $route属性；注册了全局组件-RouterView和RouterLink；定义路由导航的合并策略-与vue的created钩子函数合并规则一致。</p>
+<pre><code class="JavaScript"><span class="comment">// 挂载$router</span>
+<span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$router'</span>, {
+    get () {
+        <span class="keyword">return</span> <span class="keyword">this</span>._routerRoot._router
+    }
+})
+<span class="comment">// 挂载$route</span>
+<span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$route'</span>, {
+    get () {
+        <span class="keyword">return</span> <span class="keyword">this</span>._routerRoot._route
+    }
+})
+<span class="comment">// 注册全局组件</span>
+Vue.component(<span class="string">'RouterView'</span>, View)
+Vue.component(<span class="string">'RouterLink'</span>, Link)
+<span class="comment">// 定义合并策略</span>
+<span class="keyword">const</span> strats = Vue.config.optionMergeStrategies
+strats.beforeRouteEnter = strats.beforeRouteLeave = strats.beforeRouteUpdate = strats.created
+</code></pre>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><ol>
+<li>Vue编写插件的时候需要提供静态的install方法</li>
+<li>VueRouter的install方法会给每个组件注入beforeCreate和destroyed钩子函数，在beforeCreate进行一些私有属性定义和路由初始化。</li>
+</ol>
+<h3 id="2-VueRouter、路由初始化"><a href="#2-VueRouter、路由初始化" class="headerlink" title="2. VueRouter、路由初始化"></a>2. VueRouter、路由初始化</h3><ol start="3">
+<li>init方法执行transitionTo方法做路由过渡</li>
+<li>执行router.macth方法，此方法中执行matcher.match</li>
+</ol>
+<h4 id="路由初始化"><a href="#路由初始化" class="headerlink" title="路由初始化"></a>路由初始化</h4><h4 id="1-实例化VueRouter"><a href="#1-实例化VueRouter" class="headerlink" title="1. 实例化VueRouter"></a>1. 实例化VueRouter</h4><p>  new VueRouter会进入VueRouter类中的constructor构造器中。构造器接受一个配置项信息options对象，包含了路由配置信息routes，路由模式mode，降级处理fallback等。</p>
+<ul>
+<li>fallback：降级处理，对于路由模式的降级处理，如果不支持history就会降级到hash模式。</li>
+<li>路由模式hash,history,abstract分别对应不同的类HashHistory,Html5History,AbstractHistory。这三个类都继承于history类。</li>
+</ul>
+<pre><code class="JavaScript"><span class="class"><span class="keyword">class</span> <span class="title">VueRouter</span> </span>{
+    <span class="keyword">constructor</span> (options) {
+        ...
+        <span class="comment">// options.routes就是实例化VueRouter传递参数中的routes路由配置信息</span>
+        <span class="keyword">this</span>.matcher = createMatcher(options.routes || [], <span class="keyword">this</span>)
+        <span class="comment">// ...路由模式配置以及根据路由模式来创建对应的history实例</span>
+    }
+}
+</code></pre>
+<p>  创建路由映射表，方便以后根据path或者name查找到想要的record。并且对外提供了addRoutes(routes)方法，方便动态添加routes信息。</p>
+<pre><code>function createMatcher (routes, router) {
+    const {pathList, pathMap, nameMap} = createRouteMap(routes)
+
+    function addRoutes (routes) {
+        createRouteMap(routes, pathList, pathMap, nameMap)
+    }
+
+    // 对外提供一个addRoutes方法，方便自己动态添加routes信息
+    return {match, addRoutes}
+}
+
+// 创建路由映射表
+function createRouteMap (routes, oldPathList, oldPathMap, oladNameMap) {
+    const pathList = oldPathList || []
+    const pathMap = oldPathMap || Object.create(null)
+    const nameMap = oldNameMap || Object.create(null)
+
+    // 对路由配置进行一个遍历：添加路由记录信息
+    routes.forEach(route =&gt; {
+        addRouteRecord(pathList, pathMap, nameMap, route)
+    })
+
+    // 调整通配符优先级，放在结尾【含有通配符的路由应该放在最后】
+    for (let i = 0, l = pathList.length; i &lt; l; i++) {
+        if (pathList[i] === &apos;*&apos;) {
+           pathList.push(pathList.splice(i, 1)[0])
+           l--
+           i--
+        }
+    }
+
+    return {pathList, pathMap, nameMap}
+}
+</code></pre><p>  递归实例化VueRouter时传递的路由信息配置routes</p>
+<pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">addRouteRecord</span> (<span class="params">pathList, pathMap, nameMap, route, parent, matchAs</span>) </span>{
+  <span class="comment">// 获取路由配置信息中配置的path和name，path不能为空</span>
+  <span class="keyword">const</span> {path, name} = route
+  <span class="comment">// route.component必须是一个组件</span>
+  <span class="comment">// routes中配置 编译正则</span>
+  <span class="keyword">const</span> pathToRegexpoptions = route.pathToRegexpOptions || {}
+
+  <span class="comment">// 对路径path的一个处理以及对路径path拼接-parent.path/path</span>
+  <span class="keyword">const</span> normalizedPath = normalizePath(path, parent, pathToRegexpOptions.strict)
+
+  <span class="keyword">const</span> record = {
+      path: normalizedPath,
+      regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
+      components: route.components || {<span class="attr">default</span>: route.component},
+      instance: {},
+      name,
+      parent,
+      matchAs,
+      redirect: route.redirect,
+      beforeEnter: route.beforeEnter,
+      meta: route.meta || {},
+      props: route.props == <span class="literal">null</span> ? {} : route.components ? route.props : {<span class="attr">default</span>: route.props}
+  }
+  <span class="comment">// 遍历route中的children，递归添加addRouteRecord</span>
+  <span class="keyword">if</span> (route.children) {
+      route.children.forEach(<span class="function"><span class="params">child</span> =&gt;</span> {
+          <span class="keyword">const</span> childMatchAs = matchAs ? cleanPath(<span class="string">`<span class="subst">${matchAs}</span>/<span class="subst">${child.path}</span>`</span>) : <span class="literal">undefined</span>
+          addRouteRecord(pathList, pathMap, nameMap, child, record, childMatchAs)
+      })
+  }
+
+  <span class="comment">// ... 对alias路由别名的处理</span>
+
+  <span class="comment">// 递归上面的addRouteRecord后一直到route没有children子节点会执行下面</span>
+  <span class="comment">// 会先push最底层的children，然后一层一层往上push【因为递归是从外向内，这个方法就会从内向外】</span>
+  <span class="keyword">if</span> (!pathMap[record.path]) {
+      pathList.push(record.path)
+      pathMap[record.path] = record
+  }
+
+  <span class="comment">// 如果也配置了name，会将record也保存在nameMap中</span>
+  <span class="keyword">if</span> (name) {
+      <span class="keyword">if</span> (!nameMap[name]) {
+          nameMap[name] = record
+      }
+  }
+}
+</code></pre>
+<p>  上面初始化一系列pathList,pathMap以及nameMap后，是为了方面后期的查找match【初始化开始beforeCreate=&gt;init=&gt;transitionTo=&gt;router,match】，详情见下文。</p>
+<h4 id="2-初始化开始：组件初始化阶段的beforeCreate-调用混入的router-init"><a href="#2-初始化开始：组件初始化阶段的beforeCreate-调用混入的router-init" class="headerlink" title="2. 初始化开始：组件初始化阶段的beforeCreate-调用混入的router.init"></a>2. 初始化开始：组件初始化阶段的beforeCreate-调用混入的router.init</h4><p>  Vue.use(VueRouter)之后混入了beforeCreate钩子函数执行时，会调用this._route.init(this)也就是调用VueRouter中的init方法。</p>
+<pre><code class="JavaScript"><span class="comment">// VueRouter类中,app其实就是一个vue组件实例</span>
+init (app) {
+    <span class="keyword">this</span>.app.push(app)
+    <span class="comment">// 确保后面的逻辑只执行一次</span>
+    <span class="keyword">if</span> (<span class="keyword">this</span>.app) <span class="keyword">return</span>
+    <span class="keyword">this</span>.app = app
+    <span class="keyword">const</span> history = <span class="keyword">this</span>.history
+    <span class="keyword">if</span> (history <span class="keyword">instanceof</span> HTML5History) {
+        <span class="comment">// transitionTo：路由跳转</span>
+        history.transitionTo(history.getCurrentLocation())
+    } <span class="keyword">else</span> <span class="keyword">if</span> (history <span class="keyword">instanceof</span> HashHistory) {
+        <span class="keyword">const</span> setupHashListener = <span class="function"><span class="params">()</span> =&gt;</span> {
+            history.setupListeners()
+        }
+        history.transitionTo(history.getCurrentLocation(), setupHashListener, setupHashListener)
+    }
+
+    history.listen(<span class="function"><span class="params">router</span> =&gt;</span> {
+        <span class="keyword">this</span>.app.forEach(<span class="function">(<span class="params">app</span>) =&gt;</span> {
+            app._route = route
+        })
+    })
+}
+</code></pre>
+<p>  transitionTo进行路由跳转</p>
+<pre><code class="JavaScript">transitionTo (location, onComplete) {
+    <span class="comment">// 获取当前路径</span>
+    <span class="keyword">const</span> route = <span class="keyword">this</span>.router.match(location, <span class="keyword">this</span>.current)
+    <span class="keyword">this</span>.confirmTransition(route, () =&gt; {...})
+}
+</code></pre>
+<p>  获取当前路径this.router.match指向的是VueRouter中的match函数，match本质指向Matcher中的match函数。此match函数中利用到前面初始化的pathList，pathMap，nameMap数据。</p>
+<pre><code class="JavaScript"><span class="comment">// VueRouter类中的match函数</span>
+match (raawLocation, current, redirectedFrom) {
+    <span class="keyword">return</span> <span class="keyword">this</span>.matcher.match(raawLocation, current, redirectedFrom)
+}
+</code></pre>
+<p>  Matcher中match函数，利用到前面初始化的pathList，pathMap，nameMap数据。此函数的作用：根据传递的location和当前route计算得出当前的路由。</p>
+<pre><code class="JavaScript"><span class="comment">// Matcher中的match函数</span>
+<span class="function"><span class="keyword">function</span> <span class="title">match</span> (<span class="params">raw, currentRoute, redirectedFrom</span>) </span>{
+    <span class="comment">// 处理当前的路径等信息得到当前的path,query,hash以及_normalized数据信息</span>
+    <span class="comment">// 或者得到的是name,params,_normalized</span>
+    <span class="keyword">const</span> location = normalizeLocatin(raw, currentRoute, <span class="literal">false</span>, router)
+    <span class="keyword">const</span> {name} = location
+
+    <span class="keyword">if</span> (name) {
+        <span class="keyword">const</span> record = nameMap[name]
+        <span class="keyword">if</span> (!record) <span class="keyword">return</span> _createRoute(<span class="literal">null</span>, location)
+        <span class="comment">// 对于params参数进行处理</span>
+        <span class="keyword">const</span> paramNames = record.regex.keys.filter(<span class="function"><span class="params">key</span> =&gt;</span> !key.optional).map(<span class="function"><span class="params">key</span> =&gt;</span> key.name)
+        <span class="keyword">if</span> (<span class="keyword">typeof</span> location.params !== <span class="string">'object'</span>) {
+            location.params = {}
+        }
+        <span class="keyword">if</span> (currentRoute &amp;&amp; <span class="keyword">typeof</span> currentRoute.params === <span class="string">'object'</span>) {
+            <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> currentRoute.params) {
+                <span class="keyword">if</span> (!(key <span class="keyword">in</span> location.params) &amp;&amp; paramNames.includes(key)) {
+                    location.params[key] = currentRoute.params[key]
+                }
+            }
+        }
+        <span class="keyword">return</span> _createRoute(record, location, redirectedFrom)
+    <span class="comment">// 对于没有name属性，有path属性而言</span>
+    } <span class="keyword">else</span> <span class="keyword">if</span> (location.path) {
+        location.params = {}
+        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; pathList.length; i++) {
+            <span class="keyword">const</span> path = pathList[i]
+            <span class="keyword">const</span> record = pathMap[path]
+            <span class="comment">// 判断location.path是否匹配record.regex正则，并且如果有params会对params进行处理。</span>
+            <span class="keyword">if</span> (matchRoute(record.regex, location.path, location, params)) {
+                <span class="keyword">return</span> _createRoute(record, location, redirectedFrom)
+            }
+        }
+    }
+    <span class="keyword">return</span> _createRoute(<span class="literal">null</span>, location)
+}
+</code></pre>
+<p>  会执行 _createRoute 函数，创建一个路由路径route。_createRoute会对record路径进行一系列的处理后，调用真正创建路由route的createRoute方法。</p>
+<pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">_createRoute</span> (<span class="params">record, location, redirectedFrom</span>) </span>{
+    <span class="keyword">if</span> (record &amp;&amp; record.redirect) {
+        <span class="keyword">return</span> redirect(record, redirectedFrom || location)
+    }
+    <span class="keyword">if</span> (record &amp;&amp; record.matchAs) {
+        <span class="keyword">return</span> alias(record, location, record.matchAs)
+    }
+    <span class="keyword">return</span> createRoute(record, location, redirectedFrom, router)
+}
+</code></pre>
+<p>  createRoute创建路由，location指的是当前路径解析得到的数据对象，record则是指初始化路由routes时所保存初始的route配置相关信息，router是VueRoute实例。</p>
+<pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">createRoute</span> (<span class="params">record, location, redirectedFrom, router</span>) </span>{
+    <span class="keyword">const</span> stringifyQuery = router &amp;&amp; router.options.stringifyQuery
+    <span class="keyword">let</span> query = location.query || {}
+    <span class="keyword">try</span> {
+        query = clone(query)
+    } <span class="keyword">catch</span>(e) {}
+
+    <span class="keyword">const</span> route = {
+        name: location.name || (record &amp;&amp; record.name),
+        meta: (record &amp;&amp; record.meta) || {},
+        path: location.path || <span class="string">'/'</span>,
+        hash: location.hash || <span class="string">''</span>,
+        query,
+        params: location.params || {},
+        fullPath: getFullPath(location, stringifyQuery),
+        matched: record ? formatMatch(record) : []
+    }
+
+    <span class="keyword">if</span> (redirectedFrom) {
+        route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery)
+    }
+    <span class="comment">// 避免对route进行修改</span>
+    <span class="keyword">return</span> <span class="built_in">Object</span>.freeze(route)
+}
+</code></pre>
+<h4 id="总结：-1"><a href="#总结：-1" class="headerlink" title="总结："></a>总结：</h4><ol>
+<li>createMatcher的初始化就是根据路由的配置描述routes创建映射表（一个含有pathList,pathMap,nameMap对象），包含路径、名称到路由record的映射关系。</li>
+<li>match方法会根据传入的位置和路径计算出新的位置，并匹配到对应的路由route，然后根据新的位置和record创建新的路径route并返回。</li>
+</ol>
+<h2 id="路由切换"><a href="#路由切换" class="headerlink" title="路由切换"></a>路由切换</h2><p>  路由切换关系到导航守卫管理，URL变化，路由组件渲染等。路由切换主要就是上面有提到过的transitionTo，而transitionTo这个方法除了在初始化的时候有触发，也在VueRoute实例router的push和replace方法触发（HTML5History和HashHistory的push和replace方法）。</p>
+<h3 id="1-开始：路由切换-transitionTo"><a href="#1-开始：路由切换-transitionTo" class="headerlink" title="1. 开始：路由切换-transitionTo"></a>1. 开始：路由切换-transitionTo</h3><pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">transitionTo</span> (<span class="params">location, onComplete, onAbort</span>) </span>{
+    <span class="comment">// 得到匹配的路由信息</span>
+    <span class="keyword">const</span> route = <span class="keyword">this</span>.router.match(location, <span class="keyword">this</span>.current)
+    <span class="comment">// 完成路径的切换</span>
+    <span class="keyword">this</span>.confirmTransition(route, () =&gt; {
+
+    }, error =&gt; {
+
+    })
+}
+</code></pre>
+<p>  真正路由切换confirmTransition</p>
+<pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">confirmTransirionTo</span> (<span class="params">route, onComplete, onAbort</span>) </span>{
+    <span class="comment">// 当前路径，也就是form旧路径</span>
+    <span class="keyword">const</span> current = <span class="keyword">this</span>.current
+    <span class="comment">// 取消或者失败的方法</span>
+    <span class="keyword">const</span> abort = <span class="function"><span class="params">error</span> =&gt;</span> {
+        ...
+        onAbort &amp;&amp; onAbort(error)
+    }
+    <span class="comment">// 对于当前路径form和要跳转的路径to</span>
+    <span class="keyword">if</span> (isSameRoute(route, current) &amp;&amp; route.matched.length === current.matched.length) {
+        <span class="keyword">this</span>.ensureURL() <span class="comment">// 与URL变化相关的</span>
+        <span class="keyword">return</span> abort()
+    }
+}
+</code></pre>
+<h3 id="2-导航守卫触发"><a href="#2-导航守卫触发" class="headerlink" title="2. 导航守卫触发"></a>2. 导航守卫触发</h3><p>  在confirmTransition方法中，判断from和to不是相同路径后，会开始触发导航守卫</p>
+<pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">confirmTransition</span> (<span class="params">route, onComplete, onAbort</span>) </span>{
+    <span class="comment">// ... 前期处理,current就是form旧路径</span>
+    <span class="keyword">const</span> current = <span class="keyword">this</span>.current
+    <span class="keyword">const</span> abort = <span class="function"><span class="params">error</span> =&gt;</span> {}
+
+    <span class="comment">// 获取得到的updated是两个共同拥有的，deactived表示form所拥有的，active的表示to所拥有的</span>
+    <span class="keyword">const</span> {updated, deactivated, activated} = resolveQueue(<span class="keyword">this</span>.current.matched, route.matched)
+
+    <span class="keyword">const</span> queue = [].concat(
+      <span class="comment">// 组件内的beforeRouteLeave</span>
+      extractLeaveGuards(deactivated),
+      <span class="comment">// 全局配置的router.beforeEach</span>
+      <span class="keyword">this</span>.router.beforeHooks,
+      <span class="comment">// 组件内的beforeRouteUpdate</span>
+      extractUpdateGuards(updated),
+      <span class="comment">// 路由信息配置routes中的beforeEnter</span>
+      activated.map(<span class="function"><span class="params">m</span> =&gt;</span> m.beforeEnter)
+      <span class="comment">// async组件，异步组件</span>
+      resolveAsyncComponents(activated)
+    )
+
+    <span class="keyword">this</span>.pending = route
+    <span class="keyword">const</span> iterator = <span class="function">(<span class="params">hook, next</span>) =&gt;</span> {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.pending !== route) {
+            <span class="keyword">return</span> abort()
+        }
+        <span class="keyword">try</span> {
+            hook(route, current, (to) =&gt; {
+                <span class="comment">// 前面判断进行容错</span>
+                <span class="keyword">if</span> (<span class="keyword">typeof</span> to === <span class="string">'string'</span> ||
+                (<span class="keyword">typeof</span> to === <span class="string">'object'</span> &amp;&amp; (<span class="keyword">typeof</span> to.path === <span class="string">'string'</span>) || <span class="keyword">typeof</span> to.name === <span class="string">'string'</span>)) {
+                    abort()
+                    <span class="keyword">if</span> (route.replace) {
+                        <span class="keyword">this</span>.replace(to)
+                    } <span class="keyword">else</span> {
+                        <span class="keyword">this</span>.push(to)
+                    }
+                } <span class="keyword">else</span> {
+                    next(to)
+                }
+            })
+        } <span class="keyword">catch</span>(error) {
+            abort(error)
+        }
+    }
+
+    <span class="comment">// </span>
+    runQueue(queue, iterator, () =&gt; {
+        <span class="keyword">const</span> postEnterCbs = []
+        <span class="keyword">const</span> isValid = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.current === route
+        <span class="comment">// 组件beforeRouteEnter</span>
+        <span class="keyword">const</span> enterGuards = extractEnterGuards(activated, postEnterCbs, isValid)
+        <span class="comment">// 全局router.beforeResolve</span>
+        <span class="keyword">const</span> queue = enterGuards.concat(<span class="keyword">this</span>.router.resolveHooks)
+        runQueue(queue, iterator, () =&gt; {
+          <span class="keyword">if</span> (<span class="keyword">this</span>.pending !== route) {
+            <span class="keyword">return</span> abort()
+          }
+          <span class="keyword">this</span>.pending = <span class="literal">null</span>
+          onComplete(route)
+          <span class="keyword">if</span> (<span class="keyword">this</span>.router.app) {
+            <span class="keyword">this</span>.router.app.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> {
+              postEnterCbs.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> {
+                cb()
+              })
+            })
+          }
+        })
+    })
+}
+</code></pre>
+<p>  根据上面的代码逻辑，可以得到有关路由的守卫函数等的执行顺序是：组件beforeRouteLeave =&gt; 全局router.beforeEach =&gt; 组件beforeRouteUpdate =&gt; 路由配置routes的beforeEnter =&gt; 组件beforeRouteEnter =&gt; 全局router.beforeResolve =&gt; </p>
