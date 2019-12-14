@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue实战开发-生态篇目录 Vuex实战 Vuex原理以及源码分析 VueRouter原理 VueRouter路由模式 单页面SPA &amp;amp; 解决方案Nuxt UI组件库 单元测试  Vuex实战 疑问：扩展购物车示例，提供单次添加1-N的数量到购物车功能  1234567891011121314151617import Vue from &apos;vue&apos;;import Vuex from &apos;vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="找试卷">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/index.html">
+<meta property="og:site_name" content="找试卷">
+<meta property="og:description" content="Vue实战开发-生态篇目录 Vuex实战 Vuex原理以及源码分析 VueRouter原理 VueRouter路由模式 单页面SPA &amp;amp; 解决方案Nuxt UI组件库 单元测试  Vuex实战 疑问：扩展购物车示例，提供单次添加1-N的数量到购物车功能  1234567891011121314151617import Vue from &apos;vue&apos;;import Vuex from &apos;vue">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/vuex机制.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/vuex.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/导航守卫执行顺序.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/组件库对比.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/element-ui按需加载.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/antdv按需加载.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/iview按需加载.jpg">
+<meta property="og:updated_time" content="2019-12-14T05:18:54.459Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="找试卷">
+<meta name="twitter:description" content="Vue实战开发-生态篇目录 Vuex实战 Vuex原理以及源码分析 VueRouter原理 VueRouter路由模式 单页面SPA &amp;amp; 解决方案Nuxt UI组件库 单元测试  Vuex实战 疑问：扩展购物车示例，提供单次添加1-N的数量到购物车功能  1234567891011121314151617import Vue from &apos;vue&apos;;import Vuex from &apos;vue">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/vuex机制.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/"/>
+
+
+
+
+
+  <title> | 找试卷</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">找试卷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/12/Vue实战开发-生态篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoShijuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="找试卷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-12T15:01:42+08:00">
+                2019-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Vue实战开发-生态篇"><a href="#Vue实战开发-生态篇" class="headerlink" title="Vue实战开发-生态篇"></a>Vue实战开发-生态篇</h2><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li><a href="#Vuex-demo">Vuex实战</a></li>
+<li><a href="#Vuex">Vuex原理以及源码分析</a></li>
+<li><a href="#VueRouter">VueRouter原理</a></li>
+<li><a href="#VueRouter-mode">VueRouter路由模式</a></li>
+<li><a href="#SPA">单页面SPA &amp; 解决方案Nuxt</a></li>
+<li><a href="#componentsUI">UI组件库</a></li>
+<li><a href="#jest">单元测试</a></li>
+</ul>
+<h3 id="Vuex实战"><a href="#Vuex实战" class="headerlink" title="Vuex实战"></a><div id="Vuex-demo">Vuex实战</div></h3><blockquote>
+<p>疑问：扩展购物车示例，提供单次添加1-N的数量到购物车功能</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    store: storeInstance,</span><br><span class="line">    render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>);</span><br></pre></td></tr></table></figure>
+<p>使用Vuex的步骤：</p>
+<ol>
+<li>注册Vuex：Vue.use(Vuex);</li>
+<li>创建Store实例：new Vuex.Store(options)</li>
+<li>挂载$store：new Vue({store: storeInstance})</li>
+</ol>
+<h3 id="Vuex原理"><a href="#Vuex原理" class="headerlink" title="Vuex原理"></a><div id="Vuex">Vuex原理</div></h3><blockquote>
+<p>Vuex课后疑问</p>
+<ol>
+<li>Vuex是通过什么方式提供响应式数据的？</li>
+</ol>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答：利用Vue的data特性实现</p>
+<ol start="2">
+<li>$store是如何挂载到实例this上的？</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答：在beforeCreate钩子函数中调用vuexInit</p>
+<ol start="3">
+<li>扩展min-vuex，实现getters，并实现vuex的方式注入$store</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答：利用Vue的compute特性 + 拦截实现</p>
+<p><strong>暂且先记住这些疑问，我们先了解一下vuex。</strong></p>
+<p><img src="vuex机制.png" alt="vuex机制"></p>
+<blockquote>
+<p>Vuex提供的属性和方法</p>
+</blockquote>
+<ol>
+<li>属性：state，getters</li>
+<li>方法：commit，dispatch，replaceState，registerModule，unregisterModule，watch，subscribe，subscribeAction，hotUpdate</li>
+<li>辅助函数：mapState，mapGetters，mapMutations，mapActions，createNamespaceHelpers</li>
+</ol>
+<blockquote>
+<p>Vuex思维导图</p>
+</blockquote>
+<p><img src="vuex.png" alt="vuex思维导图"></p>
+<blockquote>
+<p>总结</p>
+<ol>
+<li>注册Vuex</li>
+</ol>
+</blockquote>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue.use会调用执行Vuex对外暴露的install方法</span></span><br><span class="line">Vue.use(Vuex);</span><br><span class="line"><span class="comment">// Vuex-install方法</span></span><br><span class="line"><span class="keyword">let</span> Vue;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">install</span> (<span class="params">_Vue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (_Vue &amp;&amp; Vue === _Vue) &#123;</span><br><span class="line">        <span class="comment">// 说明已经注册过，提示只能注册一次</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Vue = _Vue;</span><br><span class="line">        <span class="comment">// 全局混入beforeCreate钩子函数，执行VuexInit方法</span></span><br><span class="line">        Vue.mixin(&#123;</span><br><span class="line">            beforeCreate: VuexInit</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><ol start="2">
+<li><p>创建Store实例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建Store实例</span></span><br><span class="line"><span class="keyword">new</span> Vuex.Store(options)</span><br><span class="line"><span class="comment">// Vuex.Store类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Store</span> () </span>&#123;</span><br><span class="line">    construct (options) &#123;</span><br><span class="line">        <span class="comment">// ... 初始化数据等等</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载$store</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每个组件执行到beforeCreate钩子函数时，会执行到注册Vuex时混入的全局beforeCreate中VuexInit函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VuexInit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> options = <span class="keyword">this</span>.$options;</span><br><span class="line">    <span class="keyword">if</span> (options.store) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$store = <span class="built_in">Object</span>.prototype.toString.call(options.store).includes(<span class="string">'Function'</span>)</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.parent &amp;&amp; <span class="keyword">this</span>.parent.$store) &#123;</span><br><span class="line">        <span class="comment">// 保证每个组件中的$store指向的是同一个$store；以及可以直接在每个组件中使用this.$store</span></span><br><span class="line">        <span class="keyword">this</span>.$store = <span class="keyword">this</span>.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="vueRouter原理"><a href="#vueRouter原理" class="headerlink" title="vueRouter原理"></a><div id="VueRouter">vueRouter原理</div></h3><blockquote>
+<p>VueRouter使用</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. VueRouter注册</span></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建VueRouter实例</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    mode: <span class="string">''</span>,</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">''</span>,</span><br><span class="line">            name: <span class="string">''</span>,</span><br><span class="line">            component: 组件,</span><br><span class="line">            children: []</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. VueRouter注入组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>VueRouter解析</p>
+</blockquote>
+<ol>
+<li><p>VueRouter注册</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue.use会执行VueRouter的install方法</span></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"><span class="comment">// install方法</span></span><br><span class="line"><span class="keyword">let</span> _Vue;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">install</span> (<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (install.installed &amp;&amp; _Vue === Vue) <span class="keyword">return</span>;</span><br><span class="line">    install.installed = <span class="literal">true</span>;</span><br><span class="line">    _Vue = Vue;</span><br><span class="line">    <span class="comment">// 混入beforeCreate,destroyed</span></span><br><span class="line">    Vue.mixin(&#123;</span><br><span class="line">        beforeCreate()&#123;</span><br><span class="line">            <span class="keyword">if</span> (isDef(<span class="keyword">this</span>.$options.router)) &#123;</span><br><span class="line">                <span class="keyword">this</span>._routerRoot = <span class="keyword">this</span>;</span><br><span class="line">                <span class="keyword">this</span>._router = <span class="keyword">this</span>.$options.router;</span><br><span class="line">                <span class="comment">// VueRouter类中的init方法，会初始化一堆东西，同时执行transitionTo</span></span><br><span class="line">                <span class="keyword">this</span>._router.init(<span class="keyword">this</span>);</span><br><span class="line">                <span class="comment">// 将整个对象变成响应式</span></span><br><span class="line">                Vue.util.defineReactive(<span class="keyword">this</span>, <span class="string">'_route'</span>, <span class="keyword">this</span>._router.history.current);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>._routerRoot = (<span class="keyword">this</span>.$parent &amp;&amp; <span class="keyword">this</span>.$parent._routerRoot) || <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        destoryed() &#123;&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 挂载属性$ruoter和$route</span></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$router'</span>, &#123;</span><br><span class="line">        get () &#123; <span class="keyword">return</span> <span class="keyword">this</span>._routerRoot._router; &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$route'</span>, &#123;</span><br><span class="line">        get () &#123; <span class="keyword">return</span> <span class="keyword">this</span>._routerRoot._route; &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 注册全局组件</span></span><br><span class="line">    Vue.component(<span class="string">'RouterView'</span>, View);</span><br><span class="line">    Vue.component(<span class="string">'RouterLink'</span>, Link);</span><br><span class="line">    <span class="comment">// 规定组件内路由导航的合并规则</span></span><br><span class="line">    <span class="keyword">const</span> strats = Vue.config.optionMergeStrategies;</span><br><span class="line">    strats.beforeRouteEnter = strats.beforeRouteLeave = strats.beforeRouteUpdate = strats.created;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建VueRouter实例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    mode: <span class="string">''</span>,</span><br><span class="line">    routes: []</span><br><span class="line">    <span class="comment">// ... 一堆配置项</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// VueRouter类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VueRouter</span></span>&#123;</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="keyword">constructor</span> (options) &#123;</span><br><span class="line">        <span class="comment">// 重要。创建一个包含addRoutes方法 + 映射表对象</span></span><br><span class="line">        <span class="comment">// 映射表是一个包含里面含有pathList, pathMap, nameMap</span></span><br><span class="line">        <span class="keyword">this</span>.matcher = createMatcher(options.routes || [], <span class="keyword">this</span>);</span><br><span class="line">        <span class="comment">// 初始化路由模式</span></span><br><span class="line">        <span class="keyword">let</span> mode = options.mode || <span class="string">'hash'</span>;</span><br><span class="line">        <span class="comment">// supportsPushState是看当前环境是否支持html5的history模式</span></span><br><span class="line">        <span class="keyword">this</span>.fallback = mode === <span class="string">'history'</span> &amp;&amp; !supportsPushState &amp;&amp; options.fallback !== <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 降级处理</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.fallback) &#123;</span><br><span class="line">            mode = <span class="string">'hash'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 浏览器环境还是服务器环境</span></span><br><span class="line">        <span class="keyword">if</span> (!inBrowser) &#123;</span><br><span class="line">        mode = <span class="string">'abstract'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.mode = mode;</span><br><span class="line">        <span class="comment">// 根据this.mode创建不同的路由模式对象</span></span><br><span class="line">        <span class="comment">// history|hash|abstract模式对应HTML5History|HashHistory|AbstractHistory</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>VueRouter注入组件</p>
+<p> 组件在创建执行到beforeCreate钩子函数时，会执行到VueRouter注入的beforeCreate钩子函数。进而，会执行里面的 <code>this._router.init(this);</code></p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注入组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    router</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// VueRouter实例的init方法，重点会执行transitionTo方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> history = <span class="keyword">this</span>.history;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (history <span class="keyword">instanceof</span> HTML5History) &#123;</span><br><span class="line">        history.transitionTo(history.getCurrentLocation());</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (history <span class="keyword">instanceof</span> HashHistory) &#123;</span><br><span class="line">        <span class="keyword">const</span> setupHashListener = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            history.setupListeners();</span><br><span class="line">        &#125;</span><br><span class="line">        history.transitionTo(</span><br><span class="line">            history.getCurrentLocation(),</span><br><span class="line">            setupHashListener,</span><br><span class="line">            setupHashListener</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>####<span style="color: red; font-weight: bold;">VueRouter路由切换</span></p>
+<p>核心方法就是confirmTransition，能够触发这个方法的是transitionTo方法，触发transitionTo方法的是：初始化，VueRoute实例router的push和replace方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// transitionTo</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transitionTo</span> (<span class="params">location, onComplete, onAbort</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 根据初始化得到的映射表对象进行的match</span></span><br><span class="line">    <span class="keyword">const</span> route = <span class="keyword">this</span>.router.match(location, <span class="keyword">this</span>.current);</span><br><span class="line">    <span class="keyword">this</span>.confirmTransition(</span><br><span class="line">    route,</span><br><span class="line">    () =&gt; &#123;</span><br><span class="line">            <span class="comment">// 当前updateRoute方法中含有全局router.afterEnter执行</span></span><br><span class="line">            <span class="keyword">this</span>.updateRoute(route)</span><br><span class="line">            <span class="comment">// 执行push或者replace中传入的onComplete方法</span></span><br><span class="line">            onComplete &amp;&amp; onComplete(route)</span><br><span class="line">            <span class="keyword">this</span>.ensureURL()</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行注册的onReady方法</span></span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">this</span>.ready) &#123;</span><br><span class="line">                <span class="keyword">this</span>.ready = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">this</span>.readyCbs.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> &#123;</span><br><span class="line">                    cb(route)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    err =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (onAbort) &#123;</span><br><span class="line">            <span class="comment">// 执行push或者replace中传入的onComplete方法</span></span><br><span class="line">            onAbort(err)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// confirmTransition</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">confirmTransition</span> (<span class="params">route, onComplete, onAbort</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ... 前期处理,current就是form旧路径</span></span><br><span class="line">    <span class="keyword">const</span> current = <span class="keyword">this</span>.current;</span><br><span class="line">    <span class="keyword">const</span> abort = <span class="function"><span class="params">error</span> =&gt;</span> &#123;&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取得到的updated是两个共同拥有的，deactived表示form所拥有的，active的表示to所拥有的</span></span><br><span class="line">    <span class="keyword">const</span> &#123;updated, deactivated, activated&#125; = resolveQueue(<span class="keyword">this</span>.current.matched, route.matched);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> queue = [].concat(</span><br><span class="line">    <span class="comment">// 组件内的beforeRouteLeave</span></span><br><span class="line">    extractLeaveGuards(deactivated),</span><br><span class="line">    <span class="comment">// 全局配置的router.beforeEach</span></span><br><span class="line">    <span class="keyword">this</span>.router.beforeHooks,</span><br><span class="line">    <span class="comment">// 组件内的beforeRouteUpdate</span></span><br><span class="line">    extractUpdateGuards(updated),</span><br><span class="line">    <span class="comment">// 路由信息配置routes中的beforeEnter</span></span><br><span class="line">    activated.map(<span class="function"><span class="params">m</span> =&gt;</span> m.beforeEnter)</span><br><span class="line">    <span class="comment">// async组件，异步组件</span></span><br><span class="line">    resolveAsyncComponents(activated)</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.pending = route;</span><br><span class="line">    <span class="comment">// 遍历器</span></span><br><span class="line">    <span class="keyword">const</span> iterator = <span class="function">(<span class="params">hook, next</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 对于函数执行处理</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 执行queue队列函数</span></span><br><span class="line">    runQueue(queue, iterator, () =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> postEnterCbs = [];</span><br><span class="line">        <span class="keyword">const</span> isValid = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.current === route;</span><br><span class="line">        <span class="comment">// 组件beforeRouteEnter</span></span><br><span class="line">        <span class="keyword">const</span> enterGuards = extractEnterGuards(activated, postEnterCbs, isValid);</span><br><span class="line">        <span class="comment">// 全局router.beforeResolve</span></span><br><span class="line">        <span class="keyword">const</span> queue = enterGuards.concat(<span class="keyword">this</span>.router.resolveHooks);</span><br><span class="line">        runQueue(queue, iterator, () =&gt; &#123;</span><br><span class="line">            <span class="comment">// onComplete来源于transitionTo方法，此方法里面包含了updateRoute执行，并且updateRoute方法中含有</span></span><br><span class="line">            <span class="comment">// 全局router.afterEnter的执行</span></span><br><span class="line">            onComplete(route);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据上面的代码可以得到【路由切换时，所有路由导航执行的顺序】：</p>
+<p><img src="导航守卫执行顺序.jpg" alt="导航守卫执行顺序"></p>
+<h3 id="vueRouter路由模式"><a href="#vueRouter路由模式" class="headerlink" title="vueRouter路由模式"></a><div id="VueRouter-mode">vueRouter路由模式</div></h3><ul>
+<li>hash模式：格式如a/#/b</li>
+<li>history模式：格式如a/b，需要浏览器支持</li>
+<li>abstract模式：服务器端</li>
+</ul>
+<blockquote>
+<p>hash和history主要区别就是对于路径处理</p>
+<ol>
+<li>push、replace对于路径处理不一致</li>
+<li>window监听的事件不一致</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>hash路由实现</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">  <span class="built_in">window</span>.addEventListener(</span><br><span class="line">    supportsPushState ? <span class="string">'popstate'</span> : <span class="string">'hashchange'</span>,</span><br><span class="line">    () =&gt; &#123;</span><br><span class="line">      <span class="comment">// 函数处理</span></span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">location, onComplete, onAbort</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; <span class="attr">current</span>: fromRoute &#125; = <span class="keyword">this</span>;</span><br><span class="line">      <span class="keyword">this</span>.transitionTo(location, route =&gt; &#123;</span><br><span class="line">          pushHash(route.fullPath);</span><br><span class="line">      &#125;, onAbort);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// pushHash方法</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">pushHash</span> (<span class="params">path</span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">if</span> (supportsPushState) &#123;</span><br><span class="line">  		<span class="comment">// 如果当前支持HTML5的history时</span></span><br><span class="line">  		<span class="comment">// 则就会执行和history模式一样的pushState方法</span></span><br><span class="line">  		pushState(getUrl(path));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">window</span>.location.hash = path;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>history路由实现</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, e =&gt; &#123;</span><br><span class="line">	<span class="comment">// 函数处理</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">push</span> (<span class="params">location, onComplete, onAbort</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; <span class="attr">current</span>: fromRoute &#125; = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">this</span>.transitionTo(location, route =&gt; &#123;</span><br><span class="line">        pushState(cleanPath(<span class="keyword">this</span>.base + route.fullPath));</span><br><span class="line">    &#125;, onAbort);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于pushState方法，两个是一致的</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pushState</span> (<span class="params">url, replace</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> history = <span class="built_in">window</span>.history;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (replace) &#123;</span><br><span class="line">            <span class="comment">// 调用的是window.history.replaceState</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 调用的是window.history.pushState</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="comment">// 调用window.location.replace或者是window.location.assign</span></span><br><span class="line">        <span class="built_in">window</span>.location[replace ? <span class="string">'replace'</span> : <span class="string">'assign'</span>](url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>为什么history下刷新页面会404[如果后端不做配置]</p>
+</blockquote>
+<p>答案：history模式形式为a/b/c会被服务器理解成在请求a路径下b路径下c资源，但是在服务器上根本没有这个资源就会出现404错误。因此如果要使用history时，需要后端进行配置。</p>
+<h3 id="单页面SPA-amp-解决方案Nuxt"><a href="#单页面SPA-amp-解决方案Nuxt" class="headerlink" title="单页面SPA &amp; 解决方案Nuxt"></a><div id="SPA">单页面SPA &amp; 解决方案Nuxt</div></h3><blockquote>
+<p>单页面SPA缺点</p>
+</blockquote>
+<ul>
+<li><p>不利于SEO【搜索引擎】</p>
+<p>  <strong>解决方案</strong>：服务端处理然后将html返回浏览器端，也就是服务端渲染同构SSR。同构SSR – 适合动态渲染，配置繁琐。<br>  <br></p>
+</li>
+<li><p>首屏渲染时间长</p>
+<p>  <strong>解决方案</strong>：预渲染Prerendering – Prerendering适合静态站点<br>   <br></p>
+</li>
+</ul>
+<blockquote>
+<p>解决方案Nuxt - 解决SEO问题</p>
+</blockquote>
+<p>  <a href="https://zh.nuxtjs.org/" target="_blank" rel="noopener">Nuxt官网</a></p>
+<h3 id="UI组件库"><a href="#UI组件库" class="headerlink" title="UI组件库"></a><div id="componentsUI">UI组件库</div></h3><p><img src="组件库对比.jpg" alt="组件库对比"></p>
+<ul>
+<li><a href="https://element.eleme.cn/" target="_blank" rel="noopener">element-ui</a></li>
+<li><a href="https://www.antdv.com/" target="_blank" rel="noopener">Ant Design of Vue</a></li>
+<li><a href="https://www.iviewui.com/" target="_blank" rel="noopener">iview</a></li>
+</ul>
+<blockquote>
+<p>按需加载</p>
+</blockquote>
+<p><a href="https://unpkg.com/browse/element-ui@2.13.0/" target="_blank" rel="noopener">element-ui包</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 整个引用</span></span><br><span class="line"><span class="keyword">import</span> element <span class="keyword">from</span> <span class="string">'element-ui'</span>;</span><br><span class="line"><span class="comment">// 错误的按需加载</span></span><br><span class="line"><span class="keyword">import</span> &#123;Select, Option, Button, MessageBox, Message&#125; <span class="keyword">from</span> <span class="string">'element-ui'</span>;</span><br></pre></td></tr></table></figure>
+<p>只要是从<code>element-ui</code>引入东西，那么就会执行element-ui/src/index.js文件。而改文件中会将elemeent-ui组件库中所有的组件都import进来，那么就会将所有组件加载过来。只是<code>import {Select} from &#39;element-ui&#39;</code>这种模式，减少了Vue全局组件的挂载而已，并不是严格意义上的 <code>按需加载</code>。</p>
+<ul>
+<li><p>element-ui官网按需加载推荐<br><img src="element-ui按需加载.jpg" alt="element-ui官网按需加载推荐"></p>
+</li>
+<li><p>Ant Design of Vue官网按需加载推荐<br><img src="antdv按需加载.jpg" alt="Ant Design of Vue官网按需加载推荐"></p>
+</li>
+<li><p>iview官网按需加载推荐<br><img src="iview按需加载.jpg" alt="iview按需加载"></p>
+</li>
+</ul>
+<h3 id="单元测试-jset"><a href="#单元测试-jset" class="headerlink" title="单元测试- jset"></a><div id="jest">单元测试- <a href="https://jestjs.io/" target="_blank" rel="noopener">jset</a></div></h3><blockquote>
+<p>常用方法</p>
+</blockquote>
+<ul>
+<li>describe 创建一个将几个相关测试组合在一起的模块</li>
+<li>test，别名it。运行测试</li>
+<li>expect 断言某个值</li>
+</ul>
+<blockquote>
+<p> 值对比</p>
+</blockquote>
+<ul>
+<li>toBe(value) 原始值或检查对象实例的引用一致性</li>
+<li>toEqual(value) 递归比较对象实例的所有属性</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/11/CSS动画性能优化/" rel="next" title="CSS动画性能优化">
+                <i class="fa fa-chevron-left"></i> CSS动画性能优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="zhaoShijuan" />
+            
+              <p class="site-author-name" itemprop="name">zhaoShijuan</p>
+              <p class="site-description motion-element" itemprop="description">Let life be beautiful like summer flowers and death like autumn leaves</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue实战开发-生态篇"><span class="nav-text">Vue实战开发-生态篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vuex实战"><span class="nav-text">Vuex实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vuex原理"><span class="nav-text">Vuex原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vueRouter原理"><span class="nav-text">vueRouter原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vueRouter路由模式"><span class="nav-text">vueRouter路由模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单页面SPA-amp-解决方案Nuxt"><span class="nav-text">单页面SPA &amp; 解决方案Nuxt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI组件库"><span class="nav-text">UI组件库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试-jset"><span class="nav-text">单元测试- jset</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoShijuan</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

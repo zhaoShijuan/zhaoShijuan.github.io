@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/06/11/CSS动画性能优化/translate.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/11/CSS动画性能优化/translate-GPU1.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/11/CSS动画性能优化/translate-GPU2.png">
-<meta property="og:updated_time" content="2019-06-22T09:58:24.931Z">
+<meta property="og:updated_time" content="2019-08-01T08:48:30.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS动画性能优化">
 <meta name="twitter:description" content="每个项目中或多或少地会使用到动画，使得用户体验效果更好。通常简单的动画对性能影响很小，但是涉及到稍微复杂的动画或者在配置比较低的机器上时，一些不当的处理方式会使性能问题变得十分突出……">
@@ -402,6 +402,12 @@ GUI渲染线程：负责渲染浏览器界面，解析HTML，CSS，构建DOM树�
 <p>使用will-change提示浏览器关于即将发生的变形十分简单，添加个CSS属性就行</p>
 <p>will-change: transform;<br>也可以告诉浏览器要改变元素的滚动条位置，或者多个要变化的属性，写下属性的名字就行，也可以写多个，逗号隔开</p>
 <p>will-change: transform, opacity;<br>声明了元素即将进行的变化会让浏览器在渲染页面时做更好的决定，这明显比之前说的3D hacks要好。<br><br></p>
+<p><strong>提升为合成层简单说来有以下几点好处</strong></p>
+<ul>
+<li>合成层的位图，会交由 GPU 合成，比 CPU 处理要快</li>
+<li>当需要 repaint 时，只需要 repaint 本身，不会影响到其他的层</li>
+<li>对于 transform 和 opacity 效果，不会触发 layout 和 paint</li>
+</ul>
 <h2 id="transform代替盒模型属性变化"><a href="#transform代替盒模型属性变化" class="headerlink" title="transform代替盒模型属性变化"></a>transform代替盒模型属性变化</h2><p>在使用CSS3 transition做动画效果时，transform实现的动画是与合成器线程有关的，不需要等待主线程样式计算或者JS执行，计算速度很快的；而height，width，margin和padding时，导致布局和绘制的调整，主线程需要重新计算样式并且执行JS，计算速度自然就慢了。   </p>
 <blockquote>
 <p>案例：安徽门户首页快捷入口动画，使用margin-left,left,transform的性能差异</p>
@@ -512,7 +518,6 @@ GUI渲染线程：负责渲染浏览器界面，解析HTML，CSS，构建DOM树�
 <ol start="2">
 <li>不合理的GPU硬件加速会合成不必要的隐形复合层，这样会让原本在默认复合层的删除，又要布局，绘制位图，传输到GPU，存储到GPU内存这些不必要的操作；  </li>
 <li>GPU渲染会影响字体的抗锯齿效果 <a href="https://segmentfault.com/q/1010000000467910" target="_blank" rel="noopener">字体渲染-webkit-font-smoothing</a>；  </li>
-<li></li>
 </ol>
 <p><a href="https://csstriggers.com/" title="csstriggers-layout、paint、composite" target="_blank" rel="noopener">单个CSS属性给浏览器带来哪些工作量-参考网站</a><br><a href="https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/" target="_blank" rel="noopener">CSS GPU Animation: Doing It Right</a><br><a href="https://www.html5rocks.com/zh/tutorials/speed/layers/" target="_blank" rel="noopener">Accelerated Rendering in Chrome</a><br><a href="https://www.html5rocks.com/zh/tutorials/speed/high-performance-animations/" target="_blank" rel="noopener">High Performance Animations</a><br><a href="https://div.io/topic/1348" target="_blank" rel="noopener">GPU硬件加载的坑</a></p>
 <p><strong>参考文档</strong><br>（1）webkit技术内幕[朱永盛] 第七章 渲染基础<br>（2）<a href="http://blogs.adobe.com/webplatform/2014/03/18/css-animations-and-transitions-performance/" target="_blank" rel="noopener">CSS animations and transitions performance: looking inside the browser</a></p>
@@ -549,6 +554,10 @@ GUI渲染线程：负责渲染浏览器界面，解析HTML，CSS，构建DOM树�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/12/Vue实战开发-生态篇/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -629,7 +638,7 @@ GUI渲染线程：负责渲染浏览器界面，解析HTML，CSS，构建DOM树�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
