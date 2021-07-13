@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一听到张鑫旭发了一本书，名为《css选择器世界》。作为他《css世界》的读者，对他的这本新书一直念念不忘，直到今年上半年，才入手了这本新书。《css选择器世界》这本书篇幅少的让我有点意外，但是坚信“浓缩就是精华”的我，还是满怀期待地打开学习了。读完这本书后，内容都知道，但是可能一些巧妙的使用以及小的细节点是我以前所没有注意的。总之，这本书比较推荐给初中级的读者，如果你是一位css能力很棒的开发话，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css选择器世界">
+<meta property="og:url" content="http://yoursite.com/2021/07/13/css选择器世界/index.html">
+<meta property="og:site_name" content="找试卷">
+<meta property="og:description" content="一听到张鑫旭发了一本书，名为《css选择器世界》。作为他《css世界》的读者，对他的这本新书一直念念不忘，直到今年上半年，才入手了这本新书。《css选择器世界》这本书篇幅少的让我有点意外，但是坚信“浓缩就是精华”的我，还是满怀期待地打开学习了。读完这本书后，内容都知道，但是可能一些巧妙的使用以及小的细节点是我以前所没有注意的。总之，这本书比较推荐给初中级的读者，如果你是一位css能力很棒的开发话，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2021/07/13/css选择器世界/子选择符.png">
+<meta property="og:updated_time" content="2021-07-13T07:43:41.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css选择器世界">
+<meta name="twitter:description" content="一听到张鑫旭发了一本书，名为《css选择器世界》。作为他《css世界》的读者，对他的这本新书一直念念不忘，直到今年上半年，才入手了这本新书。《css选择器世界》这本书篇幅少的让我有点意外，但是坚信“浓缩就是精华”的我，还是满怀期待地打开学习了。读完这本书后，内容都知道，但是可能一些巧妙的使用以及小的细节点是我以前所没有注意的。总之，这本书比较推荐给初中级的读者，如果你是一位css能力很棒的开发话，">
+<meta name="twitter:image" content="http://yoursite.com/2021/07/13/css选择器世界/子选择符.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/07/13/css选择器世界/"/>
+
+
+
+
+
+  <title>css选择器世界 | 找试卷</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">找试卷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/13/css选择器世界/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoShijuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="找试卷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css选择器世界</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-07-13T15:32:33+08:00">
+                2021-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一听到张鑫旭发了一本书，名为《css选择器世界》。作为他《css世界》的读者，对他的这本新书一直念念不忘，直到今年上半年，才入手了这本新书。《css选择器世界》这本书篇幅少的让我有点意外，但是坚信“浓缩就是精华”的我，还是满怀期待地打开学习了。读完这本书后，内容都知道，但是可能一些巧妙的使用以及小的细节点是我以前所没有注意的。总之，这本书比较推荐给初中级的读者，如果你是一位css能力很棒的开发话，推荐你快速阅读即可。下面我只挑出一些常用的进行阐述。</p>
+<a id="more"></a>
+<h4 id="1-后代选择符-空格"><a href="#1-后代选择符-空格" class="headerlink" title="1. 后代选择符 - 空格"></a>1. 后代选择符 - 空格</h4><p>​     选择后代中符合的元素来使用当前的CSS样式规则。</p>
+<ul>
+<li><p>错误认识</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .fd-red p &#123;</span></span><br><span class="line"><span class="undefined">    color: red;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  .fd-blue p &#123;</span></span><br><span class="line"><span class="undefined">    color: blue;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-red"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-blue"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>1颜色<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-blue"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-red"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>2颜色<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当包含后代选择符的时候，整个选择器的优先级与祖先元素的DOM层级没有任何关系，这时需要看落地元素的优先级。上述案例中，落地元素是最后p元素，两个p元素彼此分离，没有嵌套关系，DOM层级平行，没有先后；再看选择器优先级：<code>.fd-red p</code>与<code>.fd-blue p</code>是一个类选择器(10) + 标签选择器(1)，选择器优先级的计算值也是一样的。这时就需要看在CSS文件中的位置，后面的比前面的优先。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:not(.fd-red)</span> <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>: blue;&#125;</span><br><span class="line"><span class="selector-class">.fd-red</span> <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>: red;&#125;</span><br></pre></td></tr></table></figure>
+<p>:not()本身的优先级为0</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fd-blue</span><span class="selector-class">.fd-blue</span> <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>: blue;&#125;</span><br><span class="line"><span class="selector-class">.fd-red</span> <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>: red;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>JS中后端选择符错误认识</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-first"</span>&gt;</span>第一<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-outer"</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-inner"</span>&gt;</span>内外开花<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> len1 = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.fd-wrap div div'</span>).length;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> len2 = <span class="built_in">document</span>.querySelector(<span class="string">'.fd-wrap'</span>).querySelectorAll(<span class="string">'div div'</span>).length;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>CSS选择器是独立于整个页面的</strong></p>
+<blockquote>
+<p>想修改querySelectorAll后面的选择器不是全局匹配，可以使用:scope伪类，其作用就是让CSS选择器的作用域局限在某一范围内。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">'.fd-wrap'</span>).querySelectorAll(<span class="string">':scope div div'</span>).length;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-子选择符-箭头-gt"><a href="#2-子选择符-箭头-gt" class="headerlink" title="2. 子选择符 - 箭头&gt;"></a>2. 子选择符 - 箭头&gt;</h4><p>​      子选择器只会匹配第一代子元素。后代选择器会匹配所有子元素。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">  <span class="selector-tag">ol</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-tag">ol</span> &gt; <span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline wavy;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">ol</span>&gt;</span><br><span class="line">  &lt;li&gt;1颜色&lt;/li&gt;</span><br><span class="line">  &lt;<span class="selector-tag">li</span>&gt;2颜色</span><br><span class="line">    &lt;<span class="selector-tag">ul</span>&gt;</span><br><span class="line">      &lt;li&gt;2-1颜色&lt;/li&gt;</span><br><span class="line">      &lt;li&gt;2-2颜色&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">  &lt;li&gt;3颜色&lt;/li&gt;</span><br><span class="line">&lt;/ol&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="子选择符.png" alt="子选择符"></p>
+<p>​      子选择器的匹配性能优于后代选择器，但是性能优势的价值有限。（当没有达到一定量级的时候，此优势不能作为选择符技术选型的优先条件）</p>
+<p>​     <strong>使用子选择符的主要目的是避免冲突。</strong></p>
+<ul>
+<li>适合子选择符的场景<ul>
+<li>状态类名控制</li>
+<li>标签受限</li>
+<li>层级位置与动态判断</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>子选择符通过限制关系使得结构更加稳固，但同时也失去了弹性和变化，需要慎重使用。</p>
+</blockquote>
+<h4 id="3-相邻兄弟选择符-加号"><a href="#3-相邻兄弟选择符-加号" class="headerlink" title="3. 相邻兄弟选择符 - 加号+"></a>3. 相邻兄弟选择符 - 加号+</h4><p>​    用于选择相邻的兄弟元素，但只能选择后面一个兄弟。</p>
+   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.fd-li</span> + <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="undefined">    color: red;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-li"</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>.fd-li + li</code>选择的是.fd-li元素后面一个相邻且标签是li的元素。</p>
+<ul>
+<li><p>文本节点与相邻兄弟选择符</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.fd-li</span> + <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="undefined">    color: red;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-li"</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  这是一段文本节点，间隔开li</span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>兄弟选择符忽略文本节点</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>注释节点与相邻兄弟选择符</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.fd-li</span> + <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="undefined">    color: red;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-li"</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 这是一段注释节点，间隔开li --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>颜色<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>兄弟选择符忽略注释节点</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>:first-child效果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fd-li</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:first-child)</span> &#123;<span class="attribute">color</span>: blue;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用相邻兄弟选择符实现</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fd-li</span> + <span class="selector-class">.fd-li</span> &#123;<span class="attribute">color</span>: blue;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-随后兄弟选择符-波浪号"><a href="#4-随后兄弟选择符-波浪号" class="headerlink" title="4. 随后兄弟选择符 - 波浪号~"></a>4. 随后兄弟选择符 - 波浪号~</h4><p>​     随后兄弟选择符会匹配后面的所有兄弟元素，而相邻兄弟选择符只会匹配后面的第一个兄弟元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.fd-p</span> ~ <span class="selector-class">.fd-li</span> &#123;</span></span><br><span class="line"><span class="undefined">    color: red;</span></span><br><span class="line"><span class="undefined">    text-decoration: underline;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fd-p</span> + <span class="selector-class">.fd-li</span> &#123;</span></span><br><span class="line"><span class="undefined">    text-decoration: underline wavy;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-li"</span>&gt;</span>1列表<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-p"</span>&gt;</span>标题文本<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-li"</span>&gt;</span>2列表<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-li"</span>&gt;</span>3列表<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>随后兄弟选择符与相邻兄弟选择符一致，会忽略文本节点与注释节点</strong></p>
+<h4 id="5-列选择符-双管道"><a href="#5-列选择符-双管道" class="headerlink" title="5. 列选择符 - 双管道||"></a>5. 列选择符 - 双管道||</h4><p>​    列选择器，目前浏览器的兼容性还不能让其在实际项目中得到应用。</p>
+<p>​    table布局和grid布局中有列的概念。如果想要控制列的样式，有两种方案：</p>
+<pre><code>1. 借助:nth-col()或者:nth-last-col()伪类，目前浏览器还未支持这两个伪类；
+2. 借助原生table布局中的colgroup和col原生来实现
+</code></pre><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 属于的含义。选择所有属于col.fd-col-demo的td元素，哪怕这个td元素横跨多列。</span><br><span class="line">col.fd-col-demo || td &#123;</span><br><span class="line">  <span class="selector-tag">background-color</span>: <span class="selector-tag">greenyellow</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为何没有前面兄弟选择符或者父元素选择符</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">浏览器解析HTML文档是从前往后，由外及里进行，所以页面总是先出现头部再出现主体内容的。</span><br><span class="line">如果CSS支持前面兄弟选择符或者父元素选择符，那就必须要等要页面所有子元素加载完毕后才能渲染HTML文档。</span><br><span class="line">“前面兄弟选择符”：后面的DOM元素影响前面的DOM元素，如果后面的元素还没被加载并处理，那么又如何印象前面元素的样式呢。</span><br><span class="line">如果浏览器支持这样的选择符，那么网页呈现速度会减慢；或者会出现重排、重绘。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如何实现前面兄弟选择符效果</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">兄弟选择符只能选择后面元素，其中“后面”仅仅指代码层面的后面，而不是视觉层面的后面。如果实现“前面兄弟选择符”效果，可以把“前面元素”的相关代码依然放在后面，但是视觉上将它呈现在前面。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex布局</li>
+<li>float浮动</li>
+<li>absolute绝对定位</li>
+</ul>
+<p><a href="https://demo.cssworld.cn/selector/4/4-2.php" target="_blank" rel="noopener">实现代码参考</a></p>
+<h3 id="元素属性选择器"><a href="#元素属性选择器" class="headerlink" title="元素属性选择器"></a>元素属性选择器</h3><p>​    元素选择器包含两类：标签选择器、通配符选择器。</p>
+<p>​    属性选择器：id选择器、类选择器、属性值选择器。</p>
+<h4 id="1-元素选择器"><a href="#1-元素选择器" class="headerlink" title="1. 元素选择器"></a>1. 元素选择器</h4><ul>
+<li><p>元素选择器是唯一不能重复自身的选择器</p>
+<p>由于元素选择器不能重复自身来提高优先级，可以通过其他方法来提高优先级：</p>
+<ol>
+<li>借助html、body标签来提高优先级 <code>body foo {}</code></li>
+<li>借助:not()伪类，括号里是任意其他不一样的标签名即可：<code>p:not(a) {}</code></li>
+</ol>
+</li>
+<li><p>级联使用的时候元素选择器必须写在最前面</p>
+</li>
+<li><p>特殊标签选择器：通配符选择器</p>
+</li>
+</ul>
+<h4 id="2-属性选择器"><a href="#2-属性选择器" class="headerlink" title="2. 属性选择器"></a>2. 属性选择器</h4><p>​    属性选择器：元素上的属性、以及属性值</p>
+<ul>
+<li><p>[attr] 匹配包含指定的属性元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[disabled]</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>[attr=’value’] 属性值完全匹配选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[type='radio']</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>[attr~=’value’] 属性值单词完全匹配选择器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-attr">[rel~='nofllow']</span> &#123;&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"nofllow noopener"</span>&gt;</span>链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>[attr|=’value’]  属性值其实片段完全匹配选择器，表示具有attr属性的元素，其值要么正好是val，要么以val外加短横线-开头，|=用于连接需要匹配的属性和属性内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line"><span class="selector-class">.fd-div</span><span class="selector-attr">[mytype]</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: hotpink;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.fd-div</span><span class="selector-attr">[mytype='test']</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: khaki;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.fd-div</span><span class="selector-attr">[data-align~='top']</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightseagreen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.fd-div</span><span class="selector-attr">[class|='fd-button']</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightsteelblue;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;div class="fd-div" mytype&gt;[attr]&lt;/div&gt;</span><br><span class="line">    &lt;div class="fd-div" mytype='test'&gt;[attr='val']&lt;/div&gt;</span><br><span class="line">    &lt;div class="fd-div" data-align="top left"&gt;[attr~='val']&lt;/div&gt;</span><br><span class="line">    &lt;div class="fd-button-sure fd-div"&gt;[attr|='val']&lt;/div&gt;</span><br><span class="line">    &lt;div class="fd-div fd-button-cancel"&gt;[attr|='val']&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>[attr^=’val’] 匹配attr属性值以字符val开头元素</p>
+</li>
+<li><p>[attr$=’val’]  匹配attr属性值以字符val结尾元素</p>
+</li>
+<li><p>[attr*=’val’]  匹配attr属性值包含字符val的元素</p>
+</li>
+</ul>
+<p>  <strong>忽略大小写的正则匹配运算符：[attr~=’val’ i]</strong></p>
+<h4 id="搜索过滤技术"><a href="#搜索过滤技术" class="headerlink" title="搜索过滤技术"></a>搜索过滤技术</h4><blockquote>
+<p>利用[data-city-name*=’cityname’]</p>
+</blockquote>
+<h3 id="树结构伪类"><a href="#树结构伪类" class="headerlink" title="树结构伪类"></a>树结构伪类</h3><h4 id="1-root"><a href="#1-root" class="headerlink" title="1. :root"></a>1. :root</h4><p>​    表示的就是html元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root.fd-page</span> &#123;<span class="attribute">background-color</span>: red;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于:root只兼容IE9+，因此一般会作为IE8、IE9浏览器兼容hack</p>
+</blockquote>
+<h4 id="2-empty"><a href="#2-empty" class="headerlink" title="2. :empty"></a>2. :empty</h4><p>​    匹配空标签元素</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.fd-empty</span><span class="selector-pseudo">:empty</span> &#123;</span></span><br><span class="line"><span class="undefined">	width: 100px;</span></span><br><span class="line"><span class="undefined">	height: 100px;</span></span><br><span class="line"><span class="undefined">	border: 10px dashed;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-empty"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>如果元素中含有空格、换行，则:empty不会对其进行匹配。</strong></p>
+<p><strong>::after、::before伪元素不会影响到:empty伪类的匹配。</strong></p>
+<ul>
+<li><p>应用</p>
+<ul>
+<li><p>隐藏空元素</p>
+</li>
+<li><p>字段缺失</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-form-item</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: relative;</span></span><br><span class="line"><span class="undefined">        padding-left: 80px;</span></span><br><span class="line"><span class="undefined">        color: lightgreen;</span></span><br><span class="line"><span class="undefined">        font-size: 16px;</span></span><br><span class="line"><span class="undefined">        line-height: 25px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-form-label</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: absolute;</span></span><br><span class="line"><span class="undefined">        top: 0;</span></span><br><span class="line"><span class="undefined">        left: 0;</span></span><br><span class="line"><span class="undefined">        width: 80px;</span></span><br><span class="line"><span class="undefined">        text-align: right;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#333</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-form-val</span> &#123;</span></span><br><span class="line"><span class="undefined">        display: inline-block;</span></span><br><span class="line"><span class="undefined">        min-width: 200px;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-form-val</span><span class="selector-pseudo">:empty</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line"><span class="undefined">        content: '暂无';</span></span><br><span class="line"><span class="undefined">        color: red;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-form"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-form-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"fd-form-label"</span>&gt;</span>姓名：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fd-form-val"</span>&gt;</span>赵士娟<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-form-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"fd-form-label"</span>&gt;</span>地址：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fd-form-val"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-子索引伪类"><a href="#3-子索引伪类" class="headerlink" title="3. 子索引伪类"></a>3. 子索引伪类</h4><ul>
+<li><p>:first-child、:last-child</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-child</span><span class="selector-pseudo">:first-child</span> &#123;</span></span><br><span class="line"><span class="undefined">        color: red;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-child"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"fd-child"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>匹配满足：是第一个/最后一个元素同时选择器也匹配的</p>
+</li>
+</ul>
+<ul>
+<li><p>:only-child </p>
+<p>匹配没有任何兄弟元素的元素，忽略前后文本内容。</p>
+<p><a href="https://demo.cssworld.cn/selector/10/3-1.php" target="_blank" rel="noopener">应用案例</a></p>
+</li>
+</ul>
+<ul>
+<li><p>:nth-child、:nth-last-child</p>
+<ul>
+<li><p>关键字形式：odd/even表示奇数个/偶数个</p>
+</li>
+<li><p>函数符号形式：An+B【n从0开始】</p>
+<p>odd = 2n + 1，even = 2n</p>
+<p>:nth-child(-n + 3)表示匹配前三个元素</p>
+<p>:nth-child(n + 4):nth-child(-n + 10)表示匹配第4-10个元素</p>
+</li>
+</ul>
+<blockquote>
+<p>应用</p>
+</blockquote>
+<ol>
+<li><p>固定行列样式</p>
+<p><a href="https://demo.cssworld.cn/selector/10/3-2.php" target="_blank" rel="noopener">demo</a></p>
+</li>
+<li><p>动态列表数量匹配</p>
+<p><a href="https://demo.cssworld.cn/selector/10/3-3.php" target="_blank" rel="noopener">demo</a></p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-匹配类型的子索引伪类"><a href="#4-匹配类型的子索引伪类" class="headerlink" title="4. 匹配类型的子索引伪类"></a>4. 匹配类型的子索引伪类</h4><p>​     匹配类型的子索引伪类是在同级列表中相同标签元素之间进行的索引与解析。</p>
+<ul>
+<li><p>:first-of-type、:last-of-type</p>
+<p>匹配同一类型元素的第一个、同一类型元素的最后一个</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-content</span> &gt; <span class="selector-pseudo">:first-of-type</span> &#123;</span></span><br><span class="line"><span class="undefined">        color: red;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-content</span> &gt; <span class="selector-pseudo">:last-of-type</span> &#123;</span></span><br><span class="line"><span class="undefined">        color: green;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"fd-head"</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-section"</span>&gt;</span>段落1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"fd-head"</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-section"</span>&gt;</span>段落2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>:only-of-type</p>
+<p>匹配唯一标签类型的元素。匹配:only-child的元素一定匹配:only-of-type，但是匹配:only-of-type的元素不一定匹配:only-child。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-content-only</span> &gt; <span class="selector-pseudo">:only-of-type</span> &#123;</span></span><br><span class="line"><span class="undefined">        color: red;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-content-only"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"fd-head"</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-section"</span>&gt;</span>段落1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"fd-head"</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-section"</span>&gt;</span>段落2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span>我是内容主题<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>:nth-of-type、:nth-last-of-type</p>
+<p>匹配指定索引的当前标签类型元素。</p>
+<p>与:nth-child一样，也有关键字形式【even/odd】、函数符号形式【An+B】</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-content-nth</span> &gt; <span class="selector-class">.fd-section</span><span class="selector-pseudo">:nth-of-type(2n)</span> &#123;</span></span><br><span class="line"><span class="undefined">        color: green;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-content-nth"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"fd-head"</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-section"</span>&gt;</span>段落1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"fd-head"</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"fd-section"</span>&gt;</span>段落2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span>我是内容主题<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="逻辑组合伪类"><a href="#逻辑组合伪类" class="headerlink" title="逻辑组合伪类"></a>逻辑组合伪类</h3><h4 id="1-否定伪类-not"><a href="#1-否定伪类-not" class="headerlink" title="1. 否定伪类:not()"></a>1. 否定伪类:not()</h4><p>​     如果当前元素与括号中选择器不匹配，则伪类会进行匹配。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-content</span> &#123;</span></span><br><span class="line"><span class="undefined">        display: inline-block;</span></span><br><span class="line"><span class="undefined">        padding: 0 10px;</span></span><br><span class="line"><span class="undefined">        height: 30px;</span></span><br><span class="line"><span class="undefined">        background-color: lightgreen;</span></span><br><span class="line"><span class="undefined">        border-radius: 15px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-box</span> &#123;</span></span><br><span class="line"><span class="undefined">        display: inline-block;</span></span><br><span class="line"><span class="undefined">        vertical-align: top;</span></span><br><span class="line"><span class="undefined">        padding: 0 10px;</span></span><br><span class="line"><span class="undefined">        height: 100%;</span></span><br><span class="line"><span class="undefined">        line-height: 30px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.fd-box</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:last-child)</span> &#123;</span></span><br><span class="line"><span class="undefined">        border-right: 1px dashed green;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-box"</span>&gt;</span>本年<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-box"</span>&gt;</span>本季<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fd-box"</span>&gt;</span>本月<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>:not()伪类优先级为0</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 优先级就是p选择器优先级 */</span></span><br><span class="line"><span class="selector-pseudo">:not(p)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>:not()伪类可以不断级联</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:disabled)</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:read-only)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>:not()伪类目前尚未支持多个表达式，也不支持出现选择符</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 不支持 */</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:disabled</span><span class="selector-pseudo">:read-only)</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[id]</span><span class="selector-attr">[title]</span>) &#123;&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(p</span><span class="selector-pseudo">:read-only)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-任意匹配伪类-is"><a href="#2-任意匹配伪类-is" class="headerlink" title="2. 任意匹配伪类:is()"></a>2. 任意匹配伪类:is()</h4><p>​      :is()伪类可以把括号中的选择器依次分配出去，对于复杂的有很多逗号分隔的选择器非常有用。</p>
+<p>​      :is()伪类本身优先级为0，整个选择器优先级由伪类里面参数优先级最高的那个选择器决定。比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 优先级等同于.fd-active p */</span></span><br><span class="line"><span class="selector-pseudo">:is(.fd-active</span>, <span class="selector-tag">section</span>) <span class="selector-tag">p</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>:is()伪类的作用：<strong>简化选择器</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fd-a</span> &gt; <span class="selector-tag">span</span>,</span><br><span class="line"><span class="selector-class">.fd-b</span> &gt; <span class="selector-tag">span</span>,</span><br><span class="line"><span class="selector-class">.fd-c</span> &gt; <span class="selector-tag">span</span>,</span><br><span class="line"><span class="selector-class">.fd-d</span> &gt; <span class="selector-tag">sapan</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>等同于下面：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:is(.fd-a</span>, <span class="selector-class">.fd-b</span>, <span class="selector-class">.fd-c</span>, <span class="selector-class">.fd-d</span>) &gt; <span class="selector-tag">span</span> &#123;<span class="attribute">color</span>: red;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-任意匹配伪类-where"><a href="#3-任意匹配伪类-where" class="headerlink" title="3. 任意匹配伪类:where()"></a>3. 任意匹配伪类:where()</h4><p>​      :where()伪类和:is()伪类的含义、语法、作用一模一样，唯一区别就是优先级不一样。</p>
+<p>​      :where()伪类的优先级永远是0，比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 优先级等同于 p */</span></span><br><span class="line"><span class="selector-pseudo">:where(.fd-active</span>, <span class="selector-tag">section</span>) <span class="selector-tag">p</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-关联伪类-has"><a href="#4-关联伪类-has" class="headerlink" title="4. 关联伪类:has()"></a>4. 关联伪类:has()</h4><p>​     <strong>目前没有浏览器支持</strong></p>
+<p>​     如果此伪类得到实现，就可以实现类似父选择器、前面兄弟选择器的功能。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 匹配所有包含img标签元素的a元素 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:has(</span>&gt;<span class="selector-tag">img</span>) &#123;&#125;</span><br><span class="line"><span class="comment">/* 匹配后面跟随p标签的header元素 */</span></span><br><span class="line"><span class="selector-tag">header</span><span class="selector-pseudo">:has(+</span> <span class="selector-tag">p</span>) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/14/VueRouter/" rel="next" title="VueRouter">
+                <i class="fa fa-chevron-left"></i> VueRouter
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="zhaoShijuan" />
+            
+              <p class="site-author-name" itemprop="name">zhaoShijuan</p>
+              <p class="site-description motion-element" itemprop="description">Let life be beautiful like summer flowers and death like autumn leaves</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-后代选择符-空格"><span class="nav-text">1. 后代选择符 - 空格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-子选择符-箭头-gt"><span class="nav-text">2. 子选择符 - 箭头&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-相邻兄弟选择符-加号"><span class="nav-text">3. 相邻兄弟选择符 - 加号+</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-随后兄弟选择符-波浪号"><span class="nav-text">4. 随后兄弟选择符 - 波浪号~</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-列选择符-双管道"><span class="nav-text">5. 列选择符 - 双管道||</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元素属性选择器"><span class="nav-text">元素属性选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-元素选择器"><span class="nav-text">1. 元素选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-属性选择器"><span class="nav-text">2. 属性选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索过滤技术"><span class="nav-text">搜索过滤技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树结构伪类"><span class="nav-text">树结构伪类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-root"><span class="nav-text">1. :root</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-empty"><span class="nav-text">2. :empty</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-子索引伪类"><span class="nav-text">3. 子索引伪类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-匹配类型的子索引伪类"><span class="nav-text">4. 匹配类型的子索引伪类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑组合伪类"><span class="nav-text">逻辑组合伪类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-否定伪类-not"><span class="nav-text">1. 否定伪类:not()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-任意匹配伪类-is"><span class="nav-text">2. 任意匹配伪类:is()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-任意匹配伪类-where"><span class="nav-text">3. 任意匹配伪类:where()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-关联伪类-has"><span class="nav-text">4. 关联伪类:has()</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoShijuan</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
